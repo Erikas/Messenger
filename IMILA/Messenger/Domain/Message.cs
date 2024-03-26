@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 
 namespace Messenger.Domain
@@ -9,8 +10,14 @@ namespace Messenger.Domain
         [Key]
         public long MessageId { get; set; }
         public required string MessageContent { get; set; }
-        public required List<Threads> ThreadId { get; set; }
-        public required List<UserAccount> SenderUserAccountId { get; set; }
+        [ForeignKey("Threads")]
+        public long ThreadId { get; set; }
+        [ForeignKey("UserAccount")]
+        public long SenderUserAccountId { get; set; }
+        public required virtual Threads Thread { get; set; }
+        public required virtual UserAccount UserAccount { get; set; }
+        public required virtual ICollection<Attachment> Attachments { get; set; }
+
 
     }
 }

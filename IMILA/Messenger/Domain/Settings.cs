@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Messenger.Domain
 {
@@ -6,7 +7,10 @@ namespace Messenger.Domain
     {
         [Key]
         public long SettingsId { get; set; }
-        public required UserAccount UserAccountId { get; set; }
+
+        [ForeignKey("UserAccount")]
+        public long UserAccountId { get; set; }
         public required bool Theme {  get; set; }
+        public virtual required UserAccount UserAccount { get; set; }
     }
 }

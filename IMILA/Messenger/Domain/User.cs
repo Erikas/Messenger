@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Messenger.Domain.Common;
 
 namespace Messenger.Domain
 {
@@ -14,9 +15,11 @@ namespace Messenger.Domain
         public required string Email { get; set; }
         [MaxLength(50)]
         public required string PhoneNumber { get; set; }
-        public string? PictureBlobUrl {  get; set; }
+        public Uri? PictureBlobUrl {  get; set; }
         [MaxLength(50)]
         public required string Country { get; set; }
+
+        public virtual required UserAccount UserAccount { get; set; }
 
     }
 }

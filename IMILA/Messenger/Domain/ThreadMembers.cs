@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Messenger.Domain
 {
@@ -6,8 +7,15 @@ namespace Messenger.Domain
     {
         [Key]
         public long ThreadMemberId { get; set; }
-        public required List<UserAccount> ThreadMemberUserAccountId { get; set; }
-        public required List<Threads> ThreadId { get; set; }
+
+        [ForeignKey("UserAccount")]
+        public long ThreadMemberUserAccountId { get; set; }
+
+        [ForeignKey("Threads")]
+        public int ThreadId { get; set; }
         public required string MemberRole { get; set; }
+
+        public virtual required UserAccount UserAccount { get; set; }
+        public virtual required Threads Thread { get; set; }
     }
 }
