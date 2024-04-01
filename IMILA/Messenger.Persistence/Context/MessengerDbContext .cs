@@ -32,5 +32,14 @@ namespace Messenger.Persistence.Context
 
             base.OnModelCreating(modelBuilder);
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                string connectionString = "Data Source=DESKTOP-G4FRUOV;Initial Catalog=Messenger;Integrated Security=True";
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
     }
 }
