@@ -1,20 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Messenger.Persistence.Entities.Common;
 
-namespace Messenger.Domain
+namespace Messenger.Persistence.Entities
 {
-    public class Contacts
+    internal class UserContact : IAuditable
     {
-        [Key]
-        public long ContactsId { get; set; }
-        [ForeignKey("UserAccount")]
+        public long Id { get; set; }
         public long UserAccountId { get; set; }
-
-        [ForeignKey("ContactUserAccount")]
         public long ContactUserAccountId { get; set; }
         public bool IsFriends { get; set; }
-
         public virtual required UserAccount UserAccount { get; set; }
         public virtual required UserAccount ContactUserAccount { get; set; }
+        public DateTime CreationTS { get; set; }
+        public DateTime? ModificationTS { get; set; }
     }
 }
