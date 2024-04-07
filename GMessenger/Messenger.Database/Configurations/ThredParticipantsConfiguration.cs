@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Messenger.Database.Configurations
 {
-    public class ThredParticipantsConfiguration : IEntityTypeConfiguration<ThredParticipants>
+    internal class ThredParticipantsConfiguration : IEntityTypeConfiguration<ThredParticipants>
     {
         public void Configure(EntityTypeBuilder<ThredParticipants> builder)
         {

@@ -6,7 +6,7 @@ namespace Messenger.Database.Configurations
 {
     public class MessageConfiguration : IEntityTypeConfiguration<Message>
     {
-        public void Configure(EntityTypeBuilder<Message> builder)
+        internal void Configure(EntityTypeBuilder<Message> builder)
         {
             builder
              .HasOne(b => b.SenderUsers)

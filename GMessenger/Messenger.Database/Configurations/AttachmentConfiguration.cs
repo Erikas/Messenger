@@ -6,12 +6,12 @@ namespace Messenger.Database.Configurations
 {
     public class AttachmentConfiguration : IEntityTypeConfiguration<Attachment>
     {
-        public void Configure(EntityTypeBuilder<Attachment> builder)
+        internal void Configure(EntityTypeBuilder<Attachment> builder)
         {
             builder
             .HasOne(b => b.Messages)
             .WithMany()
-            .HasForeignKey(b => b.MessageId);
+            .HasForeignKey(b => b.MessageId); ///i messenger configuration
         }
     }
 }

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger.Database", "Messenger.Database\Messenger.Database.csproj", "{359EBB98-A2F5-4277-A1A4-590C44766139}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger", "Messenger\Messenger.csproj", "{56C292DD-88F1-40CE-833F-1F056621E867}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger", "Messenger\Messenger.csproj", "{56C292DD-88F1-40CE-833F-1F056621E867}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

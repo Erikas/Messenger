@@ -5,7 +5,7 @@ using System.Net;
 
 namespace Messenger.Database.Configurations
 {
-    public class UserSettingsConfiguration : IEntityTypeConfiguration<UserSettings>
+    internal class UserSettingsConfiguration : IEntityTypeConfiguration<UserSettings>
     {
         public void Configure(EntityTypeBuilder<UserSettings> builder)
         {

@@ -2,6 +2,7 @@
 using Messenger.Database.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using System.Reflection;
 
 namespace Messenger.Database.Context
 {
@@ -17,14 +18,10 @@ namespace Messenger.Database.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AttachmentConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(FriendConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(MessageConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ThredParticipantsConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ThredConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserSettingsConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
+
+        //? - is not nulibel
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
             => optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["GMessengerDatabase"].ConnectionString);

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Messenger.Database.Configurations
 {
-    public class FriendConfiguration : IEntityTypeConfiguration<Friend>
+    internal class FriendConfiguration : IEntityTypeConfiguration<Friend>
     {
         public void Configure(EntityTypeBuilder<Friend> builder)
         {
