@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Messenger.Database.Entities
+﻿namespace Messenger.Database.Entities
 {
     public class Message
     {
         public int Id { get; set; }
         public int MessageSenderId { get; set; }
         public int MessageReceiverId { get; set; }
-        public string MessageText { get; set; }
+        public required string MessageText { get; set; }
         public int TredId { get; set; }
         public DateTime CreationTimeStamp { get; set; }
-        public Attachment Attachment { get; set; }
-        public ICollection<User> SenderUsers { get; set; }
-        public ICollection<User> ReceiverUsers { get; set; }
-        public ICollection<Thred> Threds { get; set; }
+        public required virtual ICollection<Attachment> Attachments { get; set; }
+        public required virtual User User1 { get; set; }
+        public required virtual User User2 { get; set; }
+        public required virtual Thread Thread { get; set; }
     }
 }

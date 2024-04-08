@@ -4,24 +4,24 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Messenger.Database.Configurations
 {
-    public class MessageConfiguration : IEntityTypeConfiguration<Message>
+    internal class MessageConfiguration : IEntityTypeConfiguration<Message>
     {
-        internal void Configure(EntityTypeBuilder<Message> builder)
+        public void Configure(EntityTypeBuilder<Message> builder)
         {
             builder
-             .HasOne(b => b.SenderUsers)
-             .WithMany()
-             .HasForeignKey(b => b.MessageSenderId);
-
-            builder
-             .HasOne(b => b.ReceiverUsers)
-             .WithMany()
+             .HasOne(b => b.User1)
+             .WithMany(a => a.Messages)
              .HasForeignKey(b => b.MessageReceiverId);
 
             builder
-             .HasOne(b => b.Threds)
-             .WithMany()
+             .HasOne(b => b.User2)
+             .WithMany(a => a.Messages2)
+             .HasForeignKey(b => b.MessageSenderId);
+
+            builder
+             .HasOne(b => b.Thread)
+             .WithMany(a => a.Messages)
              .HasForeignKey(b => b.TredId);
         }
     }
-}
+} 

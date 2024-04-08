@@ -9,14 +9,13 @@ namespace Messenger.Database.Configurations
         public void Configure(EntityTypeBuilder<Friend> builder)
         {
             builder
-            .HasOne(b => b.Users)
-            .WithMany()
-            .HasForeignKey(b => b.UserId);
-
+                .HasOne(f => f.User)
+                .WithMany(u => u.Friends)
+                .HasForeignKey(f => f.UserId);
             builder
-            .HasOne(b => b.UserFriends)
-            .WithMany()
-            .HasForeignKey(b => b.UserFriendId);
+                .HasOne(f => f.User2)
+                .WithMany(u => u.Friends2)
+                .HasForeignKey(f => f.UserFriendId);
         }
     }
 }

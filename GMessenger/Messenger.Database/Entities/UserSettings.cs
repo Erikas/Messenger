@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Messenger.Database.Entities
+﻿namespace Messenger.Database.Entities
 {
     public class UserSettings
     {
@@ -13,6 +7,6 @@ namespace Messenger.Database.Entities
         public string Theme { get; set; }
         public bool IsActive { get; set; }
         public DateTime LastTimeActive { get; set; }
-        public User User { get; set; }
+        public required virtual User User { get; set; }
     }
 }

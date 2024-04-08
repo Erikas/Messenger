@@ -4,14 +4,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Messenger.Database.Configurations
 {
-    public class AttachmentConfiguration : IEntityTypeConfiguration<Attachment>
+    internal class AttachmentConfiguration : IEntityTypeConfiguration<Attachment>
     {
-        internal void Configure(EntityTypeBuilder<Attachment> builder)
+        public void Configure(EntityTypeBuilder<Attachment> builder)
         {
+            builder.Property(a => a.Url).HasMaxLength(500);
+
             builder
-            .HasOne(b => b.Messages)
-            .WithMany()
-            .HasForeignKey(b => b.MessageId); ///i messenger configuration
+             .HasOne(b => b.Message)
+             .WithMany(a => a.Attachments)
+             .HasForeignKey(b => b.MessageId);
         }
     }
 }
