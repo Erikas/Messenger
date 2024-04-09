@@ -12,6 +12,6 @@ namespace Messenger.Persistence.Entities
         public required virtual UserAccount UserAccount { get; set; }
         public required virtual ICollection<MessageAttachment> MessageAttachments { get; set; }
         public DateTime CreationTS { get; set; }
-        public DateTime? ModificationTS { get; set; }
+        public DateTime ModificationTS { get; set; }
     }
 }

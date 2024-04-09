@@ -16,6 +16,6 @@ namespace Messenger.Persistence.Entities
         public virtual required ICollection<Thread> Threads { get; set; }
         public virtual required ICollection<Message> Messages { get; set; }
         public DateTime CreationTS { get; set; }
-        public DateTime? ModificationTS { get; set; }
+        public DateTime ModificationTS { get; set; }
     }
 }

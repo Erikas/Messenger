@@ -13,6 +13,6 @@ namespace Messenger.Persistence.Entities
         public required string Country { get; set; }
         public virtual required UserAccount UserAccount { get; set; }
         public DateTime CreationTS { get; set; }
-        public DateTime? ModificationTS { get; set; }
+        public DateTime ModificationTS { get; set; }
     }
 }

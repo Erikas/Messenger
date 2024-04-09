@@ -11,6 +11,6 @@ namespace Messenger.Persistence.Entities
         public virtual required UserAccount UserAccount { get; set; }
         public virtual required UserAccount ContactUserAccount { get; set; }
         public DateTime CreationTS { get; set; }
-        public DateTime? ModificationTS { get; set; }
+        public DateTime ModificationTS { get; set; }
     }
 }

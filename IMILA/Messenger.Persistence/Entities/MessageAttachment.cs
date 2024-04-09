@@ -10,6 +10,6 @@ namespace Messenger.Persistence.Entities
         public required Uri AttachmentBlobUrl { get; set; }
         public required virtual Message Message { get; set; }
         public DateTime CreationTS { get; set; }
-        public DateTime? ModificationTS { get; set; }
+        public DateTime ModificationTS { get; set; }
     }
 }
