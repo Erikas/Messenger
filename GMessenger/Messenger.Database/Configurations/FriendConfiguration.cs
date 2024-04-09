@@ -11,11 +11,13 @@ namespace Messenger.Database.Configurations
             builder
                 .HasOne(f => f.User)
                 .WithMany(u => u.Friends)
-                .HasForeignKey(f => f.UserId);
+                .HasForeignKey(f => f.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
             builder
                 .HasOne(f => f.User2)
                 .WithMany(u => u.Friends2)
-                .HasForeignKey(f => f.UserFriendId);
+                .HasForeignKey(f => f.UserFriendId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

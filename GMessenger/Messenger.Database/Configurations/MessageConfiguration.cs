@@ -11,12 +11,14 @@ namespace Messenger.Database.Configurations
             builder
              .HasOne(b => b.User1)
              .WithMany(a => a.Messages)
-             .HasForeignKey(b => b.MessageReceiverId);
+             .HasForeignKey(b => b.MessageReceiverId)
+             .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder
              .HasOne(b => b.User2)
              .WithMany(a => a.Messages2)
-             .HasForeignKey(b => b.MessageSenderId);
+             .HasForeignKey(b => b.MessageSenderId)
+             .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder
              .HasOne(b => b.Thread)
