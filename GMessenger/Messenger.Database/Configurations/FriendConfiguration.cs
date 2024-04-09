@@ -13,6 +13,7 @@ namespace Messenger.Database.Configurations
                 .WithMany(u => u.Friends)
                 .HasForeignKey(f => f.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
             builder
                 .HasOne(f => f.User2)
                 .WithMany(u => u.Friends2)

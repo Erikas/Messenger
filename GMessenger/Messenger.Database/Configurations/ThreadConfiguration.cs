@@ -8,7 +8,9 @@ namespace Messenger.Database.Configurations
     {
         public void Configure(EntityTypeBuilder<Entities.Thread> builder)
         {
-            builder.Property(t => t.ChatName).HasMaxLength(50);
+            builder
+                .Property(t => t.ChatName)
+                .HasMaxLength(50);
         }
     }
 }
