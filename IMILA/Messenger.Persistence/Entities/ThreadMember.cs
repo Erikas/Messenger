@@ -2,7 +2,7 @@
 
 namespace Messenger.Persistence.Entities
 {
-    internal class ThreadMember : IAuditable
+    public class ThreadMember : IAuditable
     {
         public long Id { get; set; }
         public long ThreadMemberUserAccountId { get; set; }

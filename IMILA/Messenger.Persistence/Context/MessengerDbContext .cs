@@ -1,11 +1,12 @@
 ﻿using Messenger.Persistence.Configuration;
 using Messenger.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using Thread = Messenger.Persistence.Entities.Thread;
 
 namespace Messenger.Persistence.Context
 {
-    internal class MessengerDbContext : DbContext
+    public class MessengerDbContext : DbContext
     {
         public MessengerDbContext(DbContextOptions<MessengerDbContext> options) : base(options)
         { }
@@ -21,14 +22,7 @@ namespace Messenger.Persistence.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new MessageEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new MessageAttachmentEntityTypeCongifuration());
-            modelBuilder.ApplyConfiguration(new ThreadEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new ThreadMemberEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new UserAccountEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new UserContactEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new UserSettingsEntityTypeConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(modelBuilder);
         }

@@ -2,7 +2,7 @@
 
 namespace Messenger.Persistence.Entities
 {
-    internal class MessageAttachment : IAuditable
+    public class MessageAttachment : IAuditable
     {
         public long Id { get; set; }
         public required string AttachmentName { get; set; }

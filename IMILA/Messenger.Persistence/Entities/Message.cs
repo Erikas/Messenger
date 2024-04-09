@@ -2,7 +2,7 @@
 
 namespace Messenger.Persistence.Entities
 {
-    internal class Message : IAuditable
+    public class Message : IAuditable
     {
         public long Id { get; set; }
         public required string MessageContent { get; set; }
