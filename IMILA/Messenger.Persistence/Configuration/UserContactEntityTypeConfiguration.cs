@@ -8,7 +8,6 @@ namespace Messenger.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<UserContact> builder)
         {
-            builder.HasKey(uc => uc.Id);
 
         }
     }

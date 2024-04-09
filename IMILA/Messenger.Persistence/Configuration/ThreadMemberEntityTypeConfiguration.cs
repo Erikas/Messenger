@@ -8,8 +8,6 @@ namespace Messenger.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<ThreadMember> builder)
         {
-          builder.HasKey(tm => tm.Id);
-          builder.Property(tm => tm.MemberRole).IsRequired();
 
         }
     }

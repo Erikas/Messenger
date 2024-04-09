@@ -8,9 +8,7 @@ namespace Messenger.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<Thread> builder)
         {
-            builder.HasKey(t => t.Id);
-            builder.Property(t => t.ThreadName).IsRequired().HasMaxLength(100);
-            builder.Property(t => t.IsGroup).IsRequired();
+            builder.Property(t => t.ThreadName).HasMaxLength(100);
 
             builder.HasMany(t => t.ThreadMembers)
                    .WithOne(tm => tm.Thread)

@@ -8,15 +8,12 @@ namespace Messenger.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<Message> builder)
         {
-            builder.HasKey(m => m.Id);
-
-            builder.Property(m => m.MessageContent).IsRequired();
+            builder.Property(m => m.MessageContent).HasMaxLength(2000);
 
             builder.HasMany(m => m.MessageAttachments)
                    .WithOne(a => a.Message)
                    .HasForeignKey(m => m.MessageId);
 
-              
         }
     }
 }

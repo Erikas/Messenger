@@ -13,8 +13,6 @@ namespace Messenger.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<UserAccount> builder)
         {
-            builder.HasKey(ua => ua.Id);
-
             builder.HasMany(ua => ua.ThreadMembers)
                    .WithOne(tm => tm.UserAccount)
                    .HasForeignKey(tm => tm.ThreadMemberUserAccountId);

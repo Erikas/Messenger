@@ -8,9 +8,7 @@ namespace Messenger.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<MessageAttachment> builder)
         {
-            builder.HasKey(a  => a.Id);
-            builder.Property(a => a.AttachmentName).IsRequired().HasMaxLength(50);
-            builder.Property(a => a.AttachmentBlobUrl).IsRequired();
+            builder.Property(a => a.AttachmentName).HasMaxLength(50);
         }
     }
 }
