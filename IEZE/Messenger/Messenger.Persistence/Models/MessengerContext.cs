@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Messenger.Persistence.Entities;
 using Messenger.Persistence.Configurations;
+using System.Reflection;
 
 namespace Messenger.Persistence.Models
 {
@@ -14,15 +15,16 @@ namespace Messenger.Persistence.Models
         public DbSet<ChatThread> Threads { get; set; }
         public DbSet<ThreadParticipant> ThreadParticipants { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public DbSet<Attachment> Attachments { get; set; }
-
-        public MessengerContext()
-        {
-        }
+        public DbSet<MessageAttachment> Attachments { get; set; }
 
         public MessengerContext(DbContextOptions<MessengerContext> options)
             : base(options)
         {
+        }
+
+        public MessengerContext() // be sito neveikia migracija, paziuresiu veliau
+        {
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,15 +32,8 @@ namespace Messenger.Persistence.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new FriendshipConfiguration());
-            modelBuilder.ApplyConfiguration(new UserStatusConfiguration());
-            modelBuilder.ApplyConfiguration(new UserSettingsConfiguration());
-            modelBuilder.ApplyConfiguration(new UserProfileConfiguration());
-            modelBuilder.ApplyConfiguration(new ThreadConfiguration());
-            modelBuilder.ApplyConfiguration(new ThreadParticipantConfiguration());
-            modelBuilder.ApplyConfiguration(new MessageConfiguration());
-            modelBuilder.ApplyConfiguration(new AttachmentConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
             OnModelCreatingPartial(modelBuilder);
         }
 

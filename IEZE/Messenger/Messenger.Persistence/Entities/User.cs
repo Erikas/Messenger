@@ -2,15 +2,21 @@
 {
     public class User
     {
-        public required int UserID { get; set; }
-        public required string Username { get; set; }
-        public required string PasswordHash { get; set; }
-        public required string PasswordSalt { get; set; }
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string PasswordHash { get; set; }
+        public string PasswordSalt { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }
 
-        public required UserStatus UserStatus { get; set; }
-        public required UserProfile UserProfile { get; set; }
-        public required UserSettings UserSettings { get; set; }
+        public virtual ICollection<MessageAttachment> MessageAttachment { get; set; }
+        public virtual ICollection<Message> Message { get; set; }
+        public virtual ICollection<ChatThread> ChatThread { get; set; }
+        public virtual ICollection<ThreadParticipant> ThreadParticipant { get; set; }
+        public virtual ICollection<Friendship> Friendship { get; set; }
+        public virtual UserProfile UserProfile { get; set; }
+        public virtual UserSettings UserSettings { get; set; }
+        public virtual UserStatus UserStatus { get; set; }
+
     }
 }

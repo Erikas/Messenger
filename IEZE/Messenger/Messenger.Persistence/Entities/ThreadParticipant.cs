@@ -2,12 +2,12 @@
 {
     public class ThreadParticipant
     {
-        public required int ThreadParticipantID { get; set; }
-        public required int ThreadID { get; set; }
-        public required int UserID { get; set; }
-        public required string ParticipantType { get; set; }
+        public int Id { get; set; }
+        public int ThreadID { get; set; }
+        public int UserID { get; set; }
+        public string ParticipantType { get; set; }
 
-        public required ChatThread ChatThread { get; set; }
-        public required User User { get; set; }
+        public virtual ChatThread ChatThread { get; set; }
+        public virtual User User { get; set; }
     }
 }

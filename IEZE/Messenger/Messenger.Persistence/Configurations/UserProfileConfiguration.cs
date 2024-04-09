@@ -4,41 +4,26 @@ using Messenger.Persistence.Entities;
 
 namespace Messenger.Persistence.Configurations
 {
-    public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
+    internal class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
     {
         public void Configure(EntityTypeBuilder<UserProfile> builder)
         {
-            builder.ToTable("UserProfile");
 
-            builder.HasKey(p => p.ProfileID);
-
-            builder.Property(p => p.FirstName)
-                   .IsRequired()
+            builder.Property(firstname => firstname.FirstName)
                    .HasMaxLength(50);
 
-            builder.Property(p => p.LastName)
-                   .IsRequired()
+            builder.Property(lastname => lastname.LastName)
                    .HasMaxLength(50);
 
-            builder.Property(p => p.ProfilePicture)
-                   .IsRequired();
+            builder.Property(bio => bio.Bio)
+                   .HasMaxLength(1200);
 
-            builder.Property(p => p.Bio)
-                   .IsRequired()
-                   .HasMaxLength(1000);
+            builder.Property(ppicture => ppicture.ProfilePicture)
+                   .HasMaxLength(1200);
 
-            builder.Property(p => p.BirthDate)
-                   .IsRequired();
-
-            builder.Property(p => p.CreatedAt)
-                   .IsRequired();
-
-            builder.Property(p => p.ModifiedAt)
-                   .IsRequired();
-
-            builder.HasOne(us => us.User)
-                .WithOne(u => u.UserProfile)
-                .HasForeignKey<UserProfile>(us => us.UserID);
+            builder.HasOne(userprofile => userprofile.User)
+                .WithOne(user => user.UserProfile)
+                .HasForeignKey<UserProfile>(userprofile => userprofile.UserID);
         }
     }
 }

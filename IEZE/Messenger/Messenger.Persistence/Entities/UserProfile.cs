@@ -2,15 +2,16 @@
 {
     public class UserProfile
     {
-        public required int ProfileID { get; set; }
-        public required int UserID { get; set; }
-        public required string FirstName { get; set; }
-        public required string LastName { get; set; }
-        public required byte[] ProfilePicture { get; set; }
-        public required string Bio { get; set; }
-        public required DateTime? BirthDate { get; set; }
-        public required DateTime CreatedAt { get; set; }
-        public required DateTime ModifiedAt { get; set; }
-        public required User User { get; set; }
+        public int Id { get; set; }
+        public int UserID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public byte[] ProfilePicture { get; set; }
+        public string Bio { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? ModifiedAt { get; set; }
+       
+        public virtual User User { get; set; }
     }
 }

@@ -22,48 +22,13 @@ namespace Messenger.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Messenger.Persistence.Entities.Attachment", b =>
-                {
-                    b.Property<int>("AttachmentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttachmentID"));
-
-                    b.Property<string>("AttachmentName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("AttachmentURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MessageID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UploadedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UploadedByUserID")
-                        .HasColumnType("int");
-
-                    b.HasKey("AttachmentID");
-
-                    b.HasIndex("MessageID");
-
-                    b.HasIndex("UploadedByUserID");
-
-                    b.ToTable("Attachments", (string)null);
-                });
-
             modelBuilder.Entity("Messenger.Persistence.Entities.ChatThread", b =>
                 {
-                    b.Property<int>("ThreadID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ThreadID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -72,30 +37,29 @@ namespace Messenger.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("GroupName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsGroup")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("ModifiedAt")
+                    b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("ThreadID");
+                    b.HasKey("Id");
 
                     b.HasIndex("CreatedByUserID");
 
-                    b.ToTable("Threads", (string)null);
+                    b.ToTable("Threads");
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.Friendship", b =>
                 {
-                    b.Property<int>("FriendshipID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FriendshipID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("FriendsUserID1")
                         .HasColumnType("int");
@@ -107,33 +71,27 @@ namespace Messenger.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FriendshipStatus")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("FriendshipID");
-
-                    b.HasIndex("FriendsUserID1");
+                    b.HasKey("Id");
 
                     b.HasIndex("FriendsUserID2");
 
-                    b.ToTable("Friends", (string)null);
+                    b.ToTable("Friends");
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.Message", b =>
                 {
-                    b.Property<int>("MessageID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MessageID"));
-
-                    b.Property<int?>("ChatThreadThreadID")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1200)
+                        .HasColumnType("nvarchar(1200)");
 
                     b.Property<int>("SenderUserID")
                         .HasColumnType("int");
@@ -144,30 +102,58 @@ namespace Messenger.Persistence.Migrations
                     b.Property<int>("ThreadID")
                         .HasColumnType("int");
 
-                    b.HasKey("MessageID");
-
-                    b.HasIndex("ChatThreadThreadID");
+                    b.HasKey("Id");
 
                     b.HasIndex("SenderUserID");
 
                     b.HasIndex("ThreadID");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("Messenger.Persistence.Entities.MessageAttachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AttachmentName")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("AttachmentURL")
+                        .HasMaxLength(1200)
+                        .HasColumnType("nvarchar(1200)");
+
+                    b.Property<int>("MessageID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UploadedByUserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MessageID");
+
+                    b.HasIndex("UploadedByUserID");
+
+                    b.ToTable("Attachments");
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.ThreadParticipant", b =>
                 {
-                    b.Property<int>("ThreadParticipantID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ThreadParticipantID"));
-
-                    b.Property<int?>("ChatThreadThreadID")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ParticipantType")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -177,24 +163,22 @@ namespace Messenger.Persistence.Migrations
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
-                    b.HasKey("ThreadParticipantID");
-
-                    b.HasIndex("ChatThreadThreadID");
+                    b.HasKey("Id");
 
                     b.HasIndex("ThreadID");
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("ThreadParticipants", (string)null);
+                    b.ToTable("ThreadParticipants");
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.User", b =>
                 {
-                    b.Property<int>("UserID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -203,217 +187,193 @@ namespace Messenger.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PasswordHash")
-                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("PasswordSalt")
-                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Username")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("UserID");
+                    b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.UserProfile", b =>
                 {
-                    b.Property<int>("ProfileID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProfileID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Bio")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasMaxLength(1200)
+                        .HasColumnType("nvarchar(1200)");
 
                     b.Property<DateTime?>("BirthDate")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("ModifiedAt")
+                    b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<byte[]>("ProfilePicture")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasMaxLength(1200)
+                        .HasColumnType("varbinary(1200)");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
-                    b.HasKey("ProfileID");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserID")
                         .IsUnique();
 
-                    b.ToTable("UserProfile", (string)null);
+                    b.ToTable("UserProfiles");
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.UserSettings", b =>
                 {
-                    b.Property<int>("SettingID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SettingID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("ModifiedAt")
+                    b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("Setting1")
+                    b.Property<bool>("Setting1")
                         .HasColumnType("bit");
 
                     b.Property<string>("Setting2")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.HasKey("SettingID");
-
-                    b.HasIndex("UserID")
-                        .IsUnique();
-
-                    b.ToTable("UserSettings", (string)null);
-                });
-
-            modelBuilder.Entity("Messenger.Persistence.Entities.UserStatus", b =>
-                {
-                    b.Property<int>("StatusID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StatusID"));
-
-                    b.Property<DateTime>("LastActiveAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
-                    b.HasKey("StatusID");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserID")
                         .IsUnique();
 
-                    b.ToTable("UserStatus", (string)null);
+                    b.ToTable("UserSettings");
                 });
 
-            modelBuilder.Entity("Messenger.Persistence.Entities.Attachment", b =>
+            modelBuilder.Entity("Messenger.Persistence.Entities.UserStatus", b =>
                 {
-                    b.HasOne("Messenger.Persistence.Entities.Message", "Message")
-                        .WithMany("Attachments")
-                        .HasForeignKey("MessageID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.HasOne("Messenger.Persistence.Entities.User", "UploadedByUser")
-                        .WithMany()
-                        .HasForeignKey("UploadedByUserID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Navigation("Message");
+                    b.Property<DateTime>("LastActiveAt")
+                        .HasColumnType("datetime2");
 
-                    b.Navigation("UploadedByUser");
+                    b.Property<string>("Status")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserID")
+                        .IsUnique();
+
+                    b.ToTable("UserStatuses");
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.ChatThread", b =>
                 {
-                    b.HasOne("Messenger.Persistence.Entities.User", "CreatedByUser")
-                        .WithMany()
+                    b.HasOne("Messenger.Persistence.Entities.User", "User")
+                        .WithMany("ChatThread")
                         .HasForeignKey("CreatedByUserID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CreatedByUser");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.Friendship", b =>
                 {
-                    b.HasOne("Messenger.Persistence.Entities.User", "User1")
-                        .WithMany()
-                        .HasForeignKey("FriendsUserID1")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Messenger.Persistence.Entities.User", "User2")
-                        .WithMany()
+                    b.HasOne("Messenger.Persistence.Entities.User", "User")
+                        .WithMany("Friendship")
                         .HasForeignKey("FriendsUserID2")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User1");
-
-                    b.Navigation("User2");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.Message", b =>
                 {
-                    b.HasOne("Messenger.Persistence.Entities.ChatThread", null)
-                        .WithMany("Messages")
-                        .HasForeignKey("ChatThreadThreadID");
-
-                    b.HasOne("Messenger.Persistence.Entities.User", "SenderUser")
-                        .WithMany()
+                    b.HasOne("Messenger.Persistence.Entities.User", "User")
+                        .WithMany("Message")
                         .HasForeignKey("SenderUserID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Messenger.Persistence.Entities.ChatThread", "ChatThread")
-                        .WithMany()
+                        .WithMany("Message")
                         .HasForeignKey("ThreadID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ChatThread");
 
-                    b.Navigation("SenderUser");
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Messenger.Persistence.Entities.MessageAttachment", b =>
+                {
+                    b.HasOne("Messenger.Persistence.Entities.Message", "Message")
+                        .WithMany("MessageAttachment")
+                        .HasForeignKey("MessageID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Messenger.Persistence.Entities.User", "User")
+                        .WithMany("MessageAttachment")
+                        .HasForeignKey("UploadedByUserID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Message");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.ThreadParticipant", b =>
                 {
-                    b.HasOne("Messenger.Persistence.Entities.ChatThread", null)
-                        .WithMany("Participants")
-                        .HasForeignKey("ChatThreadThreadID");
-
                     b.HasOne("Messenger.Persistence.Entities.ChatThread", "ChatThread")
-                        .WithMany()
+                        .WithMany("ThreadParticipant")
                         .HasForeignKey("ThreadID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Messenger.Persistence.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("ThreadParticipant")
                         .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ChatThread");
@@ -456,26 +416,33 @@ namespace Messenger.Persistence.Migrations
 
             modelBuilder.Entity("Messenger.Persistence.Entities.ChatThread", b =>
                 {
-                    b.Navigation("Messages");
+                    b.Navigation("Message");
 
-                    b.Navigation("Participants");
+                    b.Navigation("ThreadParticipant");
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.Message", b =>
                 {
-                    b.Navigation("Attachments");
+                    b.Navigation("MessageAttachment");
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.User", b =>
                 {
-                    b.Navigation("UserProfile")
-                        .IsRequired();
+                    b.Navigation("ChatThread");
 
-                    b.Navigation("UserSettings")
-                        .IsRequired();
+                    b.Navigation("Friendship");
 
-                    b.Navigation("UserStatus")
-                        .IsRequired();
+                    b.Navigation("Message");
+
+                    b.Navigation("MessageAttachment");
+
+                    b.Navigation("ThreadParticipant");
+
+                    b.Navigation("UserProfile");
+
+                    b.Navigation("UserSettings");
+
+                    b.Navigation("UserStatus");
                 });
 #pragma warning restore 612, 618
         }

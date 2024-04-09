@@ -4,22 +4,17 @@ using Messenger.Persistence.Entities;
 
 namespace Messenger.Persistence.Configurations
 {
-    public class UserSettingsConfiguration : IEntityTypeConfiguration<UserSettings>
+    internal class UserSettingsConfiguration : IEntityTypeConfiguration<UserSettings>
     {
         public void Configure(EntityTypeBuilder<UserSettings> builder)
         {
-            builder.ToTable("UserSettings");
+            builder.Property(setting => setting.Setting2)
+                   .HasMaxLength(10);
 
-            builder.HasKey(s => s.SettingID);
+            builder.HasOne(userprofile => userprofile.User)
+                .WithOne(user => user.UserSettings)
+                .HasForeignKey<UserSettings>(userprofile => userprofile.UserID);
 
-            builder.Property(us => us.UserID);
-
-            builder.Property(s => s.ModifiedAt)
-                   .IsRequired();
-
-            builder.HasOne(us => us.User)
-                .WithOne(u => u.UserSettings)
-                .HasForeignKey<UserSettings>(us => us.UserID);
         }
     }
 }
