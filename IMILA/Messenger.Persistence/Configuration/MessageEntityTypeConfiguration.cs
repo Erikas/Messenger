@@ -10,10 +10,13 @@ namespace Messenger.Persistence.Configuration
         {
             builder.Property(m => m.MessageContent).HasMaxLength(2000);
 
-            builder.HasMany(m => m.MessageAttachments)
-                   .WithOne(a => a.Message)
-                   .HasForeignKey(m => m.MessageId);
+            builder.HasOne(u => u.Thread)
+                   .WithMany(u => u.Messages)
+                   .HasForeignKey(u => u.MessageThreadId);
 
+            builder.HasOne(u => u.UserAccount)
+                   .WithMany(u => u.Messages)
+                   .HasForeignKey(u => u.SenderUserAccountId);
         }
     }
 }

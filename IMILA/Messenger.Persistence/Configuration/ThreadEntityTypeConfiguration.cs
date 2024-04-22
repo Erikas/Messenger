@@ -10,14 +10,9 @@ namespace Messenger.Persistence.Configuration
         {
             builder.Property(t => t.ThreadName).HasMaxLength(100);
 
-            builder.HasMany(t => t.ThreadMembers)
-                   .WithOne(tm => tm.Thread)
-                   .HasForeignKey(tm => tm.ThreadId);
-
-            builder.HasMany(t => t.Messages)
-                   .WithOne(m => m.Thread)
-                   .HasForeignKey(m => m.ThreadId);
+            builder.HasOne(u => u.UserAccount)
+                   .WithMany(u => u.Threads)
+                   .HasForeignKey(u => u.CreationUserAccountId);
         }
-
     }
 }

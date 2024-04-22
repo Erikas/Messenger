@@ -13,10 +13,6 @@ namespace Messenger.Persistence.Configuration
             builder.Property(u => u.Email).HasMaxLength(50);
             builder.Property(u => u.PhoneNumber).HasMaxLength(20);
             builder.Property(u => u.Country).HasMaxLength(60);
-
-            builder.HasOne(u => u.UserAccount)
-                   .WithOne(ua => ua.User)
-                   .HasForeignKey<UserAccount>(ua => ua.UserId);
         }
     }
 }

@@ -8,7 +8,13 @@ namespace Messenger.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<ThreadMember> builder)
         {
+            builder.HasOne(u => u.UserAccount)
+                   .WithMany(u => u.ThreadMembers)
+                   .HasForeignKey(u => u.ThreadMemberUserAccountId);
 
+            builder.HasOne(u => u.Thread)
+                   .WithMany(u => u.ThreadMembers)
+                   .HasForeignKey(u => u.ThreadId);
         }
     }
 }

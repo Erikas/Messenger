@@ -8,7 +8,7 @@ namespace Messenger.Persistence.Entities
         public required string ThreadName { get; set; }
         public long CreationUserAccountId { get; set; }
         public required bool IsGroup { get; set; }
-        public required Message Message { get; set; }
+        public virtual required Message Message { get; set; }
         public virtual required UserAccount UserAccount { get; set; }
         public virtual required ICollection<Message> Messages { get; set; }
         public virtual required ICollection<ThreadMember> ThreadMembers { get; set; }

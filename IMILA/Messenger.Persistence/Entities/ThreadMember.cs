@@ -6,7 +6,7 @@ namespace Messenger.Persistence.Entities
     {
         public long Id { get; set; }
         public long ThreadMemberUserAccountId { get; set; }
-        public int ThreadId { get; set; }
+        public long ThreadId { get; set; }
         public required string MemberRole { get; set; }
         public virtual required UserAccount UserAccount { get; set; }
         public virtual required Thread Thread { get; set; }

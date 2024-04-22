@@ -1,5 +1,4 @@
-﻿using Messenger.Persistence.Configuration;
-using Messenger.Persistence.Entities;
+﻿using Messenger.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Thread = Messenger.Persistence.Entities.Thread;
@@ -8,9 +7,6 @@ namespace Messenger.Persistence.Context
 {
     public class MessengerDbContext : DbContext
     {
-        public MessengerDbContext(DbContextOptions<MessengerDbContext> options) : base(options)
-        { }
-
         public DbSet<Message> Messages { get; set; }
         public DbSet<MessageAttachment> MessageAttachments { get; set; }
         public DbSet<ThreadMember> ThreadMembers { get; set; }
