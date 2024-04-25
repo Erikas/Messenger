@@ -8,8 +8,8 @@
         public string Content { get; set; }
         public DateTime SentAt { get; set; }
 
-       public virtual ChatThread ChatThread { get; set; }
-       public virtual User User { get; set; }
-       public virtual ICollection<MessageAttachment> MessageAttachment { get; set; }
+        public virtual ChatThread ChatThread { get; set; }
+        public virtual User User { get; set; }
+        public virtual ICollection<MessageAttachment> MessageAttachment { get; set; }
     }
 }

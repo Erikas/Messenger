@@ -1,5 +1,4 @@
-﻿// FriendshipConfiguration.cs (Configuration)
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Messenger.Persistence.Entities;
 
@@ -9,8 +8,7 @@ namespace Messenger.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Friendship> builder)
         {
-
-            builder.Property(fstatus => fstatus.FriendshipStatus)
+            builder.Property(friendship => friendship.FriendshipStatus)
                    .HasMaxLength(50);
 
             // cia ne iki galo veikia su migracija paziuresiu veliau ant FriendsUserID2 uzdeda fk, ant FriendsUserID1 ne

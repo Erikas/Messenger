@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Messenger.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class initialMigration : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,9 +17,9 @@ namespace Messenger.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    PasswordHash = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    PasswordSalt = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    PasswordSalt = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -37,7 +37,7 @@ namespace Messenger.Persistence.Migrations
                     FriendsUserID1 = table.Column<int>(type: "int", nullable: false),
                     FriendsUserID2 = table.Column<int>(type: "int", nullable: false),
                     FriendshipStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FriendshipStatus = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    FriendshipStatus = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,7 +58,7 @@ namespace Messenger.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedByUserID = table.Column<int>(type: "int", nullable: false),
                     IsGroup = table.Column<bool>(type: "bit", nullable: false),
-                    GroupName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    GroupName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -80,10 +80,10 @@ namespace Messenger.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    ProfilePicture = table.Column<byte[]>(type: "varbinary(1200)", maxLength: 1200, nullable: true),
-                    Bio = table.Column<string>(type: "nvarchar(1200)", maxLength: 1200, nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ProfilePicture = table.Column<byte[]>(type: "varbinary(1200)", maxLength: 1200, nullable: false),
+                    Bio = table.Column<string>(type: "nvarchar(1200)", maxLength: 1200, nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -107,7 +107,7 @@ namespace Messenger.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
                     Setting1 = table.Column<bool>(type: "bit", nullable: false),
-                    Setting2 = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Setting2 = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -128,7 +128,7 @@ namespace Messenger.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     LastActiveAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -150,7 +150,7 @@ namespace Messenger.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ThreadID = table.Column<int>(type: "int", nullable: false),
                     SenderUserID = table.Column<int>(type: "int", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(1200)", maxLength: 1200, nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(1200)", maxLength: 1200, nullable: false),
                     SentAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -178,7 +178,7 @@ namespace Messenger.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ThreadID = table.Column<int>(type: "int", nullable: false),
                     UserID = table.Column<int>(type: "int", nullable: false),
-                    ParticipantType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true)
+                    ParticipantType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -204,8 +204,8 @@ namespace Messenger.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MessageID = table.Column<int>(type: "int", nullable: false),
-                    AttachmentName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    AttachmentURL = table.Column<string>(type: "nvarchar(1200)", maxLength: 1200, nullable: true),
+                    AttachmentName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    AttachmentURL = table.Column<string>(type: "nvarchar(1200)", maxLength: 1200, nullable: false),
                     UploadedByUserID = table.Column<int>(type: "int", nullable: false),
                     UploadedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },

@@ -8,7 +8,7 @@ namespace Messenger.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Message> builder)
         {
-            builder.Property(content => content.Content)
+            builder.Property(message => message.Content)
                 .HasMaxLength(1200); // Kap max nvarchar apibrezti? ar geriau 1200 palikt, nes max yra 4k
 
             builder.HasOne(message => message.ChatThread)

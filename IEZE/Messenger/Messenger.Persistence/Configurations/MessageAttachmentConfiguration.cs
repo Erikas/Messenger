@@ -8,11 +8,10 @@ namespace Messenger.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<MessageAttachment> builder)
         {
-
-            builder.Property(aname => aname.AttachmentName)
+            builder.Property(attachment => attachment.AttachmentName)
                    .HasMaxLength(255);
 
-            builder.Property(aurl => aurl.AttachmentURL)
+            builder.Property(attachment => attachment.AttachmentURL)
                    .HasMaxLength(1200); 
 
             builder.HasOne(attachment => attachment.Message)
@@ -23,7 +22,6 @@ namespace Messenger.Persistence.Configurations
                    .WithMany(users => users.MessageAttachment)
                    .HasForeignKey(attachment => attachment.UploadedByUserID)
                    .OnDelete(DeleteBehavior.Restrict); // meta errora kad "may cause cycles or multiple cascade paths" paziuresiu veliau
-
         }
     }
 }

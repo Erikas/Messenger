@@ -8,7 +8,6 @@ namespace Messenger.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<UserStatus> builder)
         {
-
             builder.Property(status => status.Status)
                    .HasMaxLength(10);
 

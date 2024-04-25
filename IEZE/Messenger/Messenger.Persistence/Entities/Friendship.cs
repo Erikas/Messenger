@@ -10,6 +10,5 @@ namespace Messenger.Persistence.Entities
         public string FriendshipStatus { get; set; }
 
         public virtual User User { get; set; }
-
     }
 }

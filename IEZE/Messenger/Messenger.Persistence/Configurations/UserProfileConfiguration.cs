@@ -8,17 +8,16 @@ namespace Messenger.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<UserProfile> builder)
         {
-
-            builder.Property(firstname => firstname.FirstName)
+            builder.Property(profile => profile.FirstName)
                    .HasMaxLength(50);
 
-            builder.Property(lastname => lastname.LastName)
+            builder.Property(profile => profile.LastName)
                    .HasMaxLength(50);
 
-            builder.Property(bio => bio.Bio)
+            builder.Property(profile => profile.Bio)
                    .HasMaxLength(1200);
 
-            builder.Property(ppicture => ppicture.ProfilePicture)
+            builder.Property(profile => profile.ProfilePicture)
                    .HasMaxLength(1200);
 
             builder.HasOne(userprofile => userprofile.User)

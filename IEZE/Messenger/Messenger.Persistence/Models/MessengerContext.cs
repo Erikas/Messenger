@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Messenger.Persistence.Models
 {
-    public partial class MessengerContext : DbContext
+    public class MessengerContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Friendship> Friends { get; set; }
@@ -17,16 +17,6 @@ namespace Messenger.Persistence.Models
         public DbSet<Message> Messages { get; set; }
         public DbSet<MessageAttachment> Attachments { get; set; }
 
-        public MessengerContext(DbContextOptions<MessengerContext> options)
-            : base(options)
-        {
-        }
-
-        public MessengerContext() // be sito neveikia migracija, paziuresiu veliau
-        {
-
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlServer("Data Source=(localdb)\\local;Initial Catalog=Messenger;Integrated Security=True");
 
@@ -34,9 +24,7 @@ namespace Messenger.Persistence.Models
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            OnModelCreatingPartial(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

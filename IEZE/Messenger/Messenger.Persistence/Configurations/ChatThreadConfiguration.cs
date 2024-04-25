@@ -8,8 +8,7 @@ namespace Messenger.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<ChatThread> builder)
         {
-
-            builder.Property(gname => gname.GroupName)
+            builder.Property(thread => thread.GroupName)
                    .HasMaxLength(100);
 
             builder.HasOne(thread => thread.User)

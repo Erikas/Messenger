@@ -8,16 +8,14 @@ namespace Messenger.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-
-            builder.Property(username => username.Username)
+            builder.Property(user => user.Username)
                 .HasMaxLength(50);
 
-            builder.Property(passwordhash => passwordhash.PasswordHash)
+            builder.Property(user => user.PasswordHash)
                 .HasMaxLength(128);
 
-            builder.Property(passwordSalt => passwordSalt.PasswordSalt)
+            builder.Property(user => user.PasswordSalt)
                 .HasMaxLength(128);
-
         }
     }
 }

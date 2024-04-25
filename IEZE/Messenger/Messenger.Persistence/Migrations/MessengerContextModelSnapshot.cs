@@ -37,6 +37,7 @@ namespace Messenger.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("GroupName")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -71,6 +72,7 @@ namespace Messenger.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FriendshipStatus")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -90,6 +92,7 @@ namespace Messenger.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasMaxLength(1200)
                         .HasColumnType("nvarchar(1200)");
 
@@ -120,10 +123,12 @@ namespace Messenger.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AttachmentName")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("AttachmentURL")
+                        .IsRequired()
                         .HasMaxLength(1200)
                         .HasColumnType("nvarchar(1200)");
 
@@ -154,6 +159,7 @@ namespace Messenger.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ParticipantType")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -187,14 +193,17 @@ namespace Messenger.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("PasswordSalt")
+                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -212,6 +221,7 @@ namespace Messenger.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Bio")
+                        .IsRequired()
                         .HasMaxLength(1200)
                         .HasColumnType("nvarchar(1200)");
 
@@ -222,10 +232,12 @@ namespace Messenger.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -233,6 +245,7 @@ namespace Messenger.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<byte[]>("ProfilePicture")
+                        .IsRequired()
                         .HasMaxLength(1200)
                         .HasColumnType("varbinary(1200)");
 
@@ -262,6 +275,7 @@ namespace Messenger.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Setting2")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
@@ -288,6 +302,7 @@ namespace Messenger.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Status")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
@@ -438,11 +453,14 @@ namespace Messenger.Persistence.Migrations
 
                     b.Navigation("ThreadParticipant");
 
-                    b.Navigation("UserProfile");
+                    b.Navigation("UserProfile")
+                        .IsRequired();
 
-                    b.Navigation("UserSettings");
+                    b.Navigation("UserSettings")
+                        .IsRequired();
 
-                    b.Navigation("UserStatus");
+                    b.Navigation("UserStatus")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
