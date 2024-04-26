@@ -9,7 +9,7 @@ namespace Messenger.Persistence.Configurations
         public void Configure(EntityTypeBuilder<UserStatus> builder)
         {
             builder.Property(status => status.Status)
-                   .HasMaxLength(10);
+                .HasMaxLength(10);
 
             builder.HasOne(userprofile => userprofile.User)
                 .WithOne(user => user.UserStatus)

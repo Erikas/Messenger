@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Messenger.Persistence.Migrations
 {
     [DbContext(typeof(MessengerContext))]
-    [Migration("20240425193148_initial")]
+    [Migration("20240426070959_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -80,6 +80,8 @@ namespace Messenger.Persistence.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FriendsUserID1");
 
                     b.HasIndex("FriendsUserID2");
 
@@ -333,13 +335,21 @@ namespace Messenger.Persistence.Migrations
 
             modelBuilder.Entity("Messenger.Persistence.Entities.Friendship", b =>
                 {
-                    b.HasOne("Messenger.Persistence.Entities.User", "User")
-                        .WithMany("Friendship")
-                        .HasForeignKey("FriendsUserID2")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("Messenger.Persistence.Entities.User", "FriendId1")
+                        .WithMany("FriendshipUser1")
+                        .HasForeignKey("FriendsUserID1")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.HasOne("Messenger.Persistence.Entities.User", "FriendId2")
+                        .WithMany("FriendshipUser2")
+                        .HasForeignKey("FriendsUserID2")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("FriendId1");
+
+                    b.Navigation("FriendId2");
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.Message", b =>
@@ -347,7 +357,7 @@ namespace Messenger.Persistence.Migrations
                     b.HasOne("Messenger.Persistence.Entities.User", "User")
                         .WithMany("Message")
                         .HasForeignKey("SenderUserID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Messenger.Persistence.Entities.ChatThread", "ChatThread")
@@ -372,7 +382,7 @@ namespace Messenger.Persistence.Migrations
                     b.HasOne("Messenger.Persistence.Entities.User", "User")
                         .WithMany("MessageAttachment")
                         .HasForeignKey("UploadedByUserID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Message");
@@ -391,7 +401,7 @@ namespace Messenger.Persistence.Migrations
                     b.HasOne("Messenger.Persistence.Entities.User", "User")
                         .WithMany("ThreadParticipant")
                         .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ChatThread");
@@ -448,7 +458,9 @@ namespace Messenger.Persistence.Migrations
                 {
                     b.Navigation("ChatThread");
 
-                    b.Navigation("Friendship");
+                    b.Navigation("FriendshipUser1");
+
+                    b.Navigation("FriendshipUser2");
 
                     b.Navigation("Message");
 

@@ -1,5 +1,4 @@
-﻿// Friendship.cs (Entity)
-namespace Messenger.Persistence.Entities
+﻿namespace Messenger.Persistence.Entities
 {
     public class Friendship
     {
@@ -9,6 +8,8 @@ namespace Messenger.Persistence.Entities
         public DateTime FriendshipStartDate { get; set; }
         public string FriendshipStatus { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual User FriendId1 { get; set; }
+        public virtual User FriendId2 { get; set; }
+
     }
 }

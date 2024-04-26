@@ -43,11 +43,15 @@ namespace Messenger.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Friends", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Friends_Users_FriendsUserID1",
+                        column: x => x.FriendsUserID1,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Friends_Users_FriendsUserID2",
                         column: x => x.FriendsUserID2,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -166,8 +170,7 @@ namespace Messenger.Persistence.Migrations
                         name: "FK_Messages_Users_SenderUserID",
                         column: x => x.SenderUserID,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -193,8 +196,7 @@ namespace Messenger.Persistence.Migrations
                         name: "FK_ThreadParticipants_Users_UserID",
                         column: x => x.UserID,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -222,8 +224,7 @@ namespace Messenger.Persistence.Migrations
                         name: "FK_Attachments_Users_UploadedByUserID",
                         column: x => x.UploadedByUserID,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -235,6 +236,11 @@ namespace Messenger.Persistence.Migrations
                 name: "IX_Attachments_UploadedByUserID",
                 table: "Attachments",
                 column: "UploadedByUserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Friends_FriendsUserID1",
+                table: "Friends",
+                column: "FriendsUserID1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Friends_FriendsUserID2",

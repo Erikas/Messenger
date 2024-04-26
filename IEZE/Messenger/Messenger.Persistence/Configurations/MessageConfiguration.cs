@@ -9,16 +9,16 @@ namespace Messenger.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Message> builder)
         {
             builder.Property(message => message.Content)
-                .HasMaxLength(1200); // Kap max nvarchar apibrezti? ar geriau 1200 palikt, nes max yra 4k
+                .HasMaxLength(1200);
 
             builder.HasOne(message => message.ChatThread)
-                   .WithMany(thread => thread.Message)
-                   .HasForeignKey(message => message.ThreadID);
+                .WithMany(thread => thread.Message)
+                .HasForeignKey(message => message.ThreadID);
 
             builder.HasOne(message => message.User)
-                   .WithMany(user => user.Message)
-                   .HasForeignKey(message => message.SenderUserID)
-                   .OnDelete(DeleteBehavior.Restrict); // meta errora kad "may cause cycles or multiple cascade paths" paziuresiu veliau
+                .WithMany(user => user.Message)
+                .HasForeignKey(message => message.SenderUserID)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

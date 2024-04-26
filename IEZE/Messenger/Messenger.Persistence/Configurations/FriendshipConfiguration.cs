@@ -9,16 +9,17 @@ namespace Messenger.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Friendship> builder)
         {
             builder.Property(friendship => friendship.FriendshipStatus)
-                   .HasMaxLength(50);
+                .HasMaxLength(50);
 
-            // cia ne iki galo veikia su migracija paziuresiu veliau ant FriendsUserID2 uzdeda fk, ant FriendsUserID1 ne
-            builder.HasOne(friendship => friendship.User)
-                   .WithMany(user => user.Friendship)
-                   .HasForeignKey(friendship => friendship.FriendsUserID1);
+            builder.HasOne(friendship => friendship.FriendId1)
+                .WithMany(user => user.FriendshipUser1)
+                .HasForeignKey(friendship => friendship.FriendsUserID1)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(friendship => friendship.User)
-                   .WithMany(user => user.Friendship)
-                   .HasForeignKey(friendship => friendship.FriendsUserID2);
+            builder.HasOne(friendship => friendship.FriendId2)
+                .WithMany(user => user.FriendshipUser2)
+                .HasForeignKey(friendship => friendship.FriendsUserID2)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

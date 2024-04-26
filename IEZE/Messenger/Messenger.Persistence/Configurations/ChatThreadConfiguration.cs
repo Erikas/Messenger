@@ -9,11 +9,11 @@ namespace Messenger.Persistence.Configurations
         public void Configure(EntityTypeBuilder<ChatThread> builder)
         {
             builder.Property(thread => thread.GroupName)
-                   .HasMaxLength(100);
+                .HasMaxLength(100);
 
             builder.HasOne(thread => thread.User)
-                   .WithMany(user => user.ChatThread)
-                   .HasForeignKey(thread => thread.CreatedByUserID);
+                .WithMany(user => user.ChatThread)
+                .HasForeignKey(thread => thread.CreatedByUserID);
         }
     }
 }
