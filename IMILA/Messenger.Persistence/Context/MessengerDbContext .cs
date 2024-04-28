@@ -7,6 +7,12 @@ namespace Messenger.Persistence.Context
 {
     public class MessengerDbContext : DbContext
     {
+
+        public MessengerDbContext(DbContextOptions<MessengerDbContext> options) : base(options)
+        {
+        }
+
+
         public DbSet<Message> Messages { get; set; }
         public DbSet<MessageAttachment> MessageAttachments { get; set; }
         public DbSet<ThreadMember> ThreadMembers { get; set; }
@@ -23,13 +29,13 @@ namespace Messenger.Persistence.Context
             base.OnModelCreating(modelBuilder);
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                string connectionString = "Data Source=DESKTOP-G4FRUOV;Initial Catalog=Messenger;Integrated Security=True;TrustServerCertificate=True";
-                optionsBuilder.UseSqlServer(connectionString);
-            }
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        string connectionString = "Data Source=DESKTOP-G4FRUOV;Initial Catalog=Messenger;Integrated Security=True;TrustServerCertificate=True";
+        //        optionsBuilder.UseSqlServer(connectionString);
+        //    }
+        //}
     }
 }
