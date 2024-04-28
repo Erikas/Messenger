@@ -10,11 +10,13 @@ namespace Messenger.Persistence.Configuration
         {
             builder.HasOne(u => u.UserAccount)
                    .WithMany(u => u.ThreadMembers)
-                   .HasForeignKey(u => u.ThreadMemberUserAccountId);
+                   .HasForeignKey(u => u.ThreadMemberUserAccountId)
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(u => u.Thread)
                    .WithMany(u => u.ThreadMembers)
-                   .HasForeignKey(u => u.ThreadId);
+                   .HasForeignKey(u => u.ThreadId)
+                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

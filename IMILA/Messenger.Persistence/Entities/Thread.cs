@@ -5,8 +5,8 @@ namespace Messenger.Persistence.Entities
     public class Thread : IAuditable
     {
         public long Id { get; set; }
-        public required string ThreadName { get; set; }
-        public long CreationUserAccountId { get; set; }
+        public required string Name { get; set; }
+        public long CreatorAccountId { get; set; }
         public required bool IsGroup { get; set; }
         public virtual required Message Message { get; set; }
         public virtual required UserAccount UserAccount { get; set; }

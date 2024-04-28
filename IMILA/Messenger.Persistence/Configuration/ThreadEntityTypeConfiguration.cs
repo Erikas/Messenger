@@ -8,11 +8,12 @@ namespace Messenger.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<Thread> builder)
         {
-            builder.Property(t => t.ThreadName).HasMaxLength(100);
+            builder.Property(t => t.Name).HasMaxLength(100);
 
             builder.HasOne(u => u.UserAccount)
                    .WithMany(u => u.Threads)
-                   .HasForeignKey(u => u.CreationUserAccountId);
+                   .HasForeignKey(u => u.CreatorAccountId)
+                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

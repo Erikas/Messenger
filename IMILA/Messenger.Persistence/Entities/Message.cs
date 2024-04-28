@@ -5,7 +5,7 @@ namespace Messenger.Persistence.Entities
     public class Message : IAuditable
     {
         public long Id { get; set; }
-        public required string MessageContent { get; set; }
+        public required string Content { get; set; }
         public long MessageThreadId { get; set; }
         public long SenderUserAccountId { get; set; }
         public required virtual Thread Thread { get; set; } 

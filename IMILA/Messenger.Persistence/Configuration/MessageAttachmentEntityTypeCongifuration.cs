@@ -8,11 +8,12 @@ namespace Messenger.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<MessageAttachment> builder)
         {
-            builder.Property(a => a.AttachmentName).HasMaxLength(50);
+            builder.Property(a => a.Name).HasMaxLength(50);
 
             builder.HasOne(u => u.Message)
                    .WithMany(u => u.MessageAttachments)
-                   .HasForeignKey(u => u.MessageId);
+                   .HasForeignKey(u => u.MessageId)
+                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

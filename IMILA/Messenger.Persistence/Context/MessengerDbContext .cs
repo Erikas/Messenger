@@ -27,7 +27,7 @@ namespace Messenger.Persistence.Context
         {
             if (!optionsBuilder.IsConfigured)
             {
-                string connectionString = "Data Source=DESKTOP-G4FRUOV;Initial Catalog=Messenger;Integrated Security=True";
+                string connectionString = "Data Source=DESKTOP-G4FRUOV;Initial Catalog=Messenger;Integrated Security=True;TrustServerCertificate=True";
                 optionsBuilder.UseSqlServer(connectionString);
             }
         }

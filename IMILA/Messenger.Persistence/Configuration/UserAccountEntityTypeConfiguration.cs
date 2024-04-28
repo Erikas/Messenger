@@ -10,7 +10,8 @@ namespace Messenger.Persistence.Configuration
         {
             builder.HasOne(u => u.User)
                    .WithOne(u => u.UserAccount)
-                   .HasForeignKey<UserAccount>(u => u.UserId);
+                   .HasForeignKey<UserAccount>(u => u.UserId)
+                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

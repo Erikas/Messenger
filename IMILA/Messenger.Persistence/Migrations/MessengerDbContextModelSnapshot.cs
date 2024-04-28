@@ -30,13 +30,13 @@ namespace Messenger.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("CreationTS")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("MessageContent")
+                    b.Property<string>("Content")
                         .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
+
+                    b.Property<DateTime>("CreationTS")
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("MessageThreadId")
                         .HasColumnType("bigint");
@@ -64,14 +64,9 @@ namespace Messenger.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("AttachmentBlobUrl")
+                    b.Property<string>("BlobUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AttachmentName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("CreationTS")
                         .HasColumnType("datetime2");
@@ -81,6 +76,11 @@ namespace Messenger.Persistence.Migrations
 
                     b.Property<DateTime>("ModificationTS")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -100,7 +100,7 @@ namespace Messenger.Persistence.Migrations
                     b.Property<DateTime>("CreationTS")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("CreationUserAccountId")
+                    b.Property<long>("CreatorAccountId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsGroup")
@@ -112,14 +112,14 @@ namespace Messenger.Persistence.Migrations
                     b.Property<DateTime>("ModificationTS")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ThreadName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreationUserAccountId");
+                    b.HasIndex("CreatorAccountId");
 
                     b.HasIndex("MessageId");
 
@@ -307,13 +307,13 @@ namespace Messenger.Persistence.Migrations
                     b.HasOne("Messenger.Persistence.Entities.Thread", "Thread")
                         .WithMany("Messages")
                         .HasForeignKey("MessageThreadId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Messenger.Persistence.Entities.UserAccount", "UserAccount")
                         .WithMany("Messages")
                         .HasForeignKey("SenderUserAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Thread");
@@ -326,7 +326,7 @@ namespace Messenger.Persistence.Migrations
                     b.HasOne("Messenger.Persistence.Entities.Message", "Message")
                         .WithMany("MessageAttachments")
                         .HasForeignKey("MessageId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Message");
@@ -336,8 +336,8 @@ namespace Messenger.Persistence.Migrations
                 {
                     b.HasOne("Messenger.Persistence.Entities.UserAccount", "UserAccount")
                         .WithMany("Threads")
-                        .HasForeignKey("CreationUserAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("CreatorAccountId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Messenger.Persistence.Entities.Message", "Message")
@@ -356,13 +356,13 @@ namespace Messenger.Persistence.Migrations
                     b.HasOne("Messenger.Persistence.Entities.Thread", "Thread")
                         .WithMany("ThreadMembers")
                         .HasForeignKey("ThreadId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Messenger.Persistence.Entities.UserAccount", "UserAccount")
                         .WithMany("ThreadMembers")
                         .HasForeignKey("ThreadMemberUserAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Thread");
@@ -375,7 +375,7 @@ namespace Messenger.Persistence.Migrations
                     b.HasOne("Messenger.Persistence.Entities.User", "User")
                         .WithOne("UserAccount")
                         .HasForeignKey("Messenger.Persistence.Entities.UserAccount", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -386,13 +386,13 @@ namespace Messenger.Persistence.Migrations
                     b.HasOne("Messenger.Persistence.Entities.UserAccount", "ContactUserAccount")
                         .WithMany("ContactUserContacts")
                         .HasForeignKey("ContactUserAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Messenger.Persistence.Entities.UserAccount", "UserAccount")
                         .WithMany("UserContacts")
                         .HasForeignKey("UserAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ContactUserAccount");
@@ -405,7 +405,7 @@ namespace Messenger.Persistence.Migrations
                     b.HasOne("Messenger.Persistence.Entities.UserAccount", "UserAccount")
                         .WithOne("UserSettings")
                         .HasForeignKey("Messenger.Persistence.Entities.UserSettings", "UserAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("UserAccount");
