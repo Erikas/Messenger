@@ -12,7 +12,7 @@ namespace Messenger.Persistence.Configurations
                 .HasMaxLength(255);
 
             builder.Property(attachment => attachment.AttachmentURL)
-                .HasMaxLength(1200); 
+                .HasMaxLength(1200);
 
             builder.HasOne(attachment => attachment.Message)
                 .WithMany(message => message.MessageAttachment)

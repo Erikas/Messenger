@@ -17,8 +17,12 @@ namespace Messenger.Persistence.Models
         public DbSet<Message> Messages { get; set; }
         public DbSet<MessageAttachment> Attachments { get; set; }
 
+        public MessengerContext(DbContextOptions<MessengerContext> options) : base(options)
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseSqlServer("Data Source=(localdb)\\local;Initial Catalog=Messenger;Integrated Security=True");
+            => optionsBuilder.UseSqlServer("Data Source=(localdb)\\local;Initial Catalog=Messenger;TrustServerCertificate=true;Integrated Security=True");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
