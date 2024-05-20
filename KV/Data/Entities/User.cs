@@ -7,5 +7,6 @@
         public DateTime ChangeTS { get; set; }
         public ContactBook? ContactBook { get; set; }
         public ICollection<Participant>? Participants { get; set; }
+        public ICollection<Contact>? Contacts { get; set; }
     }
 }

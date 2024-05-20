@@ -9,16 +9,19 @@ namespace Messenger.Data.Configurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable(nameof(User));
+            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.ChangeTS)
-                .HasDefaultValue(DateTime.UtcNow);
+                   .HasDefaultValue(DateTime.UtcNow);
 
             builder.Property(x => x.Name)
-                .IsRequired()
-                .HasMaxLength(50);
+                   .IsRequired()
+                   .HasMaxLength(50);
 
-            builder.HasKey(x => x.Id)
-                .HasName($"PK_{nameof(User)}.{nameof(User.Id)}");
+            builder.HasMany(e => e.Participants)
+                   .WithOne(e => e.User)
+                   .HasForeignKey(e => e.UserId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

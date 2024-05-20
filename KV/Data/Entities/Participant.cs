@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Messenger.Data.Entities
+﻿namespace Messenger.Data.Entities
 {
     public class Participant
     {
@@ -16,7 +10,7 @@ namespace Messenger.Data.Entities
         public required Chat Chat { get; set; }
         public int UserId { get; set; }
         public required User User { get; set; }
-        public ICollection<Message>? Messages { get; set; }
+        public ICollection<Message>? SentMessages { get; set; }
         public DateTime ChangeTS { get; set; }
     }
 }
