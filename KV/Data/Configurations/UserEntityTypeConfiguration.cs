@@ -8,6 +8,8 @@ namespace Messenger.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.ToTable(nameof(User));
+
             builder.Property(x => x.ChangeTS)
                 .HasDefaultValue(DateTime.UtcNow);
 

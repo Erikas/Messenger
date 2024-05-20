@@ -19,7 +19,7 @@ namespace Messenger.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            new UserEntityTypeConfiguration().Configure(modelBuilder.Entity<User>());
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IEntityTypeConfiguration<MessengerContext>).Assembly);
         }
     }
 }
