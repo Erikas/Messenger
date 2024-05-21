@@ -9,5 +9,6 @@
         public int SenderParticipantId { get; set; }
         public required Participant SenderParticipant { get; set; }
         public ICollection<Attachment>? Attachments { get; set; }
+        public DateTime ChangeTS { get; set; }
     }
 }
