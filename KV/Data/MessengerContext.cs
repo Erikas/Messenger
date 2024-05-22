@@ -6,7 +6,13 @@ namespace Messenger.Data
 {
     public class MessengerContext : DbContext
     {
-        public DbSet<User> User { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<ContactBook> ContactBooks { get; set; }
+        public DbSet<Participant> Participants { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
 
         public MessengerContext(DbContextOptions<MessengerContext> options) : base(options) 
         {
