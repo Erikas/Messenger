@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Messenger.Core.Services;
+﻿using Messenger.Core.Services;
 using Messenger.Data;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -13,6 +12,8 @@ namespace Messenger.Core
             services.RegisterSqliteDb();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            services.AddScoped<IVerificationService, VerificationService>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IChatService, ChatService>();

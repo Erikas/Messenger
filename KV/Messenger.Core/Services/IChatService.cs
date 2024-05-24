@@ -4,24 +4,50 @@ using Messenger.Core.Resources;
 using Messenger.Data;
 using Messenger.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.InteropServices;
 
 namespace Messenger.Core.Services
 {
     public interface IChatService
     {
         Task<IChatDtoModel> CreateSoloChat(ISinglePersonChatCreationModel model);
+        Task CreateChatParticipant(INewParticipantModel model, int currentUser);
     }
 
     internal class ChatService : IChatService
     {
         private readonly MessengerContext messengerContext;
+        private readonly IVerificationService verificationService;
         private readonly IMapper mapper;
         
-        public ChatService(MessengerContext messengerContext, IMapper mapper)
+        public ChatService(MessengerContext messengerContext,
+            IVerificationService verificationService,
+            IMapper mapper)
         {
             this.messengerContext = messengerContext;
+            this.verificationService = verificationService;
             this.mapper = mapper;
+        }
+
+        public async Task CreateChatParticipant(INewParticipantModel model, int currentUser)
+        {
+            await verificationService.VerifyIfUserIsChatAdmin(currentUser, model.ChatId);
+            await verificationService.VerifyIfUserIsNotAlreadyInTheChat(model.UserId, model.ChatId);
+
+            var newParticipant = new Participant
+            {
+                IsAdmin = model.IsAdmin ?? false,
+                IsCreator = model.IsCreator ?? false,
+                ChatId = model.ChatId,
+                UserId = model.UserId,
+                ChangeTS = DateTime.Now,
+                Chat = await CurrentChat(model.ChatId),
+                User = await CurrentUser(model.UserId)
+            };
+
+            await messengerContext.Participants.AddAsync(newParticipant);
+            await messengerContext.SaveChangesAsync();
+
+            return;
         }
 
         public async Task<IChatDtoModel> CreateSoloChat(ISinglePersonChatCreationModel model)
@@ -51,6 +77,16 @@ namespace Messenger.Core.Services
             await messengerContext.SaveChangesAsync();
 
             return mapper.Map<IChatDtoModel>(newChat);
+        }
+
+        private async Task<Chat> CurrentChat(int id)
+        {
+            return await messengerContext.Chats.FirstAsync(x => x.Id == id);
+        }
+
+        private async Task<User> CurrentUser(int id)
+        {
+            return await messengerContext.Users.FirstAsync(x => x.Id == id);
         }
     }
 }
