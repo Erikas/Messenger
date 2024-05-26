@@ -17,6 +17,7 @@ namespace Messenger.Core
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IChatService, ChatService>();
+            services.AddScoped<IMessageService, MessageService>();
         }
     }
 }
