@@ -9,6 +9,7 @@ namespace Messenger.Core.Services
     {
         Task VerifyIfUserIsChatAdmin(int userId, int chatId);
         Task VerifyIfUserIsNotAlreadyInTheChat(int newUserId, int chatId);
+        Task<bool> ParticipantIsAdminStatus(int id);
     }
 
     internal class VerificationService : IVerificationService
@@ -20,6 +21,11 @@ namespace Messenger.Core.Services
             this.messengerContext = messengerContext;
         }
 
+        public async Task<bool> ParticipantIsAdminStatus(int id)
+        {
+            return await messengerContext.Participants.AnyAsync(x => x.Id == id && x.IsAdmin);
+        }
+
         public async Task VerifyIfUserIsChatAdmin(int userId, int chatId)
         {
             var result = await messengerContext.Chats
@@ -29,7 +35,7 @@ namespace Messenger.Core.Services
 
             if (result) { return; }
 
-            throw new UnauthorizedException(ExceptionMessages.UnauthorizedMessage);
+            throw new UnauthorizedException(ExceptionMessages.Unauthorized);
         }
 
         public async Task VerifyIfUserIsNotAlreadyInTheChat(int newUserId, int chatId)
