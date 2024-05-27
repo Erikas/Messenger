@@ -6,6 +6,7 @@
         public string? NickName { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsCreator { get; set; }
+        public bool IsActive { get; set; }
         public int ChatId { get; set; }
         public required Chat Chat { get; set; }
         public int UserId { get; set; }

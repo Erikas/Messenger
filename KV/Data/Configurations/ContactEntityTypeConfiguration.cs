@@ -18,6 +18,9 @@ namespace Messenger.Data.Configurations
                    .WithMany(x => x.Contacts)
                    .HasForeignKey(x => x.ContactUserId)
                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasIndex(x => new { x.ContactUserId, x.ContactBookId })
+                   .IsUnique();
         }
     }
 }

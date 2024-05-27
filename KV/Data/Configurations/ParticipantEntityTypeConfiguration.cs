@@ -18,6 +18,9 @@ namespace Messenger.Data.Configurations
                    .WithOne(x => x.SenderParticipant)
                    .HasForeignKey(x => x.SenderParticipantId)
                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasIndex(x => new { x.UserId, x.ChatId })
+                   .IsUnique();
         }
     }
 }
