@@ -1,3 +1,4 @@
+using Messenger.API.ApplicationServices;
 using Messenger.Core;
 
 namespace Messenger.API
@@ -10,6 +11,10 @@ namespace Messenger.API
 
             // Add services to the container.
             builder.Services.RegisterCoreServices();
+
+            // Api services to move out
+            builder.Services.AddScoped<IChatApplicationService, ChatApplicationService>();
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

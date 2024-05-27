@@ -5,12 +5,14 @@ using Messenger.Data;
 using Messenger.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Messenger.Core.Services
 {
     public interface IChatService
     {
         Task<IChatDtoModel> CreateSoloChat(ISinglePersonChatCreationModel model);
         Task CreateChatParticipant(INewParticipantModel model, int currentUser);
+        IQueryable<IChatMessageModel> QueryChatMessages(int chatId);
     }
 
     internal class ChatService : IChatService
@@ -77,6 +79,25 @@ namespace Messenger.Core.Services
             await messengerContext.SaveChangesAsync();
 
             return mapper.Map<IChatDtoModel>(newChat);
+        }
+
+        public IQueryable<IChatMessageModel> QueryChatMessages(int chatId)
+        {
+            var result = messengerContext.Messages
+                .Include(msg => msg.Chat)
+                .Include(msg => msg.SenderParticipant).ThenInclude(prt => prt.User)
+                .OrderByDescending(msg => msg.ChangeTS).ThenByDescending(msg => msg.Id)
+                .Where(msg => msg.ChatId == chatId)
+                .Select(msg => new ChatMessageModel
+                {
+                    Id = msg.Id,
+                    Content = msg.Content,
+                    SenderName = msg.SenderParticipant.NickName ?? msg.SenderParticipant.User.Name,
+                    ChangeTS = msg.ChangeTS
+                })
+                .AsQueryable();
+
+            return result;
         }
 
         private async Task<Chat> CurrentChat(int id)
