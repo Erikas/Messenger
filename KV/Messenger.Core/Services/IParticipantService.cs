@@ -27,6 +27,7 @@ namespace Messenger.Core.Services
                     ?? throw new KeyNotFoundException();
 
                 currentParticipant.IsActive = false;
+                currentParticipant.ChangeTS = DateTime.Now;
                 messengerContext.Participants.Update(currentParticipant);
                 await messengerContext.SaveChangesAsync();
 
@@ -48,6 +49,7 @@ namespace Messenger.Core.Services
                     ?? throw new KeyNotFoundException();
 
             participant.IsActive = false;
+            participant.ChangeTS = DateTime.Now;
             messengerContext.Participants.Update(participant);
             await messengerContext.SaveChangesAsync();
             return;
