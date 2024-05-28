@@ -37,7 +37,7 @@ namespace Messenger.Data.Migrations
 
                     b.HasIndex("MessageId");
 
-                    b.ToTable("Attachments");
+                    b.ToTable("Attachments", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Data.Entities.Chat", b =>
@@ -54,7 +54,7 @@ namespace Messenger.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Chats");
+                    b.ToTable("Chats", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Data.Entities.Contact", b =>
@@ -78,7 +78,7 @@ namespace Messenger.Data.Migrations
 
                     b.HasIndex("ContactUserId");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("Contacts", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Data.Entities.ContactBook", b =>
@@ -98,7 +98,7 @@ namespace Messenger.Data.Migrations
                     b.HasIndex("OwnerUserId")
                         .IsUnique();
 
-                    b.ToTable("ContactBooks");
+                    b.ToTable("ContactBooks", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Data.Entities.Message", b =>
@@ -126,7 +126,7 @@ namespace Messenger.Data.Migrations
 
                     b.HasIndex("SenderParticipantId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Data.Entities.Participant", b =>
@@ -162,7 +162,7 @@ namespace Messenger.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Participants");
+                    b.ToTable("Participants", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Data.Entities.User", b =>
@@ -183,7 +183,7 @@ namespace Messenger.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Data.Entities.Attachment", b =>
