@@ -1,6 +1,7 @@
 ﻿using Messenger.Data.Configurations;
 using Messenger.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Messenger.Data
 {
@@ -25,7 +26,7 @@ namespace Messenger.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IEntityTypeConfiguration<MessengerContext>).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

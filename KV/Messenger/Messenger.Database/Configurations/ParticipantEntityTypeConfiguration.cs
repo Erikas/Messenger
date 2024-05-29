@@ -8,7 +8,7 @@ namespace Messenger.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Participant> builder)
         {
-            builder.ToTable(nameof(ContactBook));
+            builder.ToTable(nameof(Participant));
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.ChangeTS)
