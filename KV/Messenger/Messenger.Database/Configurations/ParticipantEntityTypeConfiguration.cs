@@ -20,7 +20,7 @@ namespace Messenger.Data.Configurations
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasIndex(x => new { x.UserId, x.ChatId })
-                   .IsUnique();
+                   .IsUnique(true);
         }
     }
 }

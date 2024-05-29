@@ -18,7 +18,7 @@ namespace Messenger.Database.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 29, 29, 205, DateTimeKind.Utc).AddTicks(1566))
+                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 36, 42, 493, DateTimeKind.Utc).AddTicks(6413))
                 },
                 constraints: table =>
                 {
@@ -33,7 +33,7 @@ namespace Messenger.Database.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 29, 29, 207, DateTimeKind.Utc).AddTicks(2886))
+                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 36, 42, 496, DateTimeKind.Utc).AddTicks(5449))
                 },
                 constraints: table =>
                 {
@@ -47,7 +47,7 @@ namespace Messenger.Database.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     OwnerUserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 29, 29, 205, DateTimeKind.Utc).AddTicks(6842))
+                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 36, 42, 494, DateTimeKind.Utc).AddTicks(2882))
                 },
                 constraints: table =>
                 {
@@ -72,7 +72,7 @@ namespace Messenger.Database.Migrations
                     IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
                     ChatId = table.Column<int>(type: "INTEGER", nullable: false),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 29, 29, 206, DateTimeKind.Utc).AddTicks(8967))
+                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 36, 42, 495, DateTimeKind.Utc).AddTicks(9242))
                 },
                 constraints: table =>
                 {
@@ -99,7 +99,7 @@ namespace Messenger.Database.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ContactBookId = table.Column<int>(type: "INTEGER", nullable: false),
                     ContactUserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 29, 29, 206, DateTimeKind.Utc).AddTicks(1198))
+                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 36, 42, 494, DateTimeKind.Utc).AddTicks(8919))
                 },
                 constraints: table =>
                 {
@@ -127,7 +127,7 @@ namespace Messenger.Database.Migrations
                     Content = table.Column<string>(type: "TEXT", nullable: false),
                     ChatId = table.Column<int>(type: "INTEGER", nullable: false),
                     SenderParticipantId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 29, 29, 206, DateTimeKind.Utc).AddTicks(5647))
+                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 36, 42, 495, DateTimeKind.Utc).AddTicks(4536))
                 },
                 constraints: table =>
                 {
@@ -154,7 +154,7 @@ namespace Messenger.Database.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     MessageId = table.Column<int>(type: "INTEGER", nullable: false),
                     StorageLocation = table.Column<string>(type: "TEXT", nullable: false),
-                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 29, 29, 204, DateTimeKind.Utc).AddTicks(9492))
+                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 36, 42, 493, DateTimeKind.Utc).AddTicks(3498))
                 },
                 constraints: table =>
                 {

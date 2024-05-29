@@ -26,7 +26,7 @@ namespace Messenger.Database.Migrations
                     b.Property<DateTime>("ChangeTS")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 29, 29, 204, DateTimeKind.Utc).AddTicks(9492));
+                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 36, 42, 493, DateTimeKind.Utc).AddTicks(3498));
 
                     b.Property<int>("MessageId")
                         .HasColumnType("INTEGER");
@@ -51,7 +51,7 @@ namespace Messenger.Database.Migrations
                     b.Property<DateTime>("ChangeTS")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 29, 29, 205, DateTimeKind.Utc).AddTicks(1566));
+                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 36, 42, 493, DateTimeKind.Utc).AddTicks(6413));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -72,7 +72,7 @@ namespace Messenger.Database.Migrations
                     b.Property<DateTime>("ChangeTS")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 29, 29, 206, DateTimeKind.Utc).AddTicks(1198));
+                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 36, 42, 494, DateTimeKind.Utc).AddTicks(8919));
 
                     b.Property<int>("ContactBookId")
                         .HasColumnType("INTEGER");
@@ -99,7 +99,7 @@ namespace Messenger.Database.Migrations
                     b.Property<DateTime>("ChangeTS")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 29, 29, 205, DateTimeKind.Utc).AddTicks(6842));
+                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 36, 42, 494, DateTimeKind.Utc).AddTicks(2882));
 
                     b.Property<int>("OwnerUserId")
                         .HasColumnType("INTEGER");
@@ -121,7 +121,7 @@ namespace Messenger.Database.Migrations
                     b.Property<DateTime>("ChangeTS")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 29, 29, 206, DateTimeKind.Utc).AddTicks(5647));
+                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 36, 42, 495, DateTimeKind.Utc).AddTicks(4536));
 
                     b.Property<int>("ChatId")
                         .HasColumnType("INTEGER");
@@ -151,7 +151,7 @@ namespace Messenger.Database.Migrations
                     b.Property<DateTime>("ChangeTS")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 29, 29, 206, DateTimeKind.Utc).AddTicks(8967));
+                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 36, 42, 495, DateTimeKind.Utc).AddTicks(9242));
 
                     b.Property<int>("ChatId")
                         .HasColumnType("INTEGER");
@@ -190,7 +190,7 @@ namespace Messenger.Database.Migrations
                     b.Property<DateTime>("ChangeTS")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 29, 29, 207, DateTimeKind.Utc).AddTicks(2886));
+                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 36, 42, 496, DateTimeKind.Utc).AddTicks(5449));
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("INTEGER");
