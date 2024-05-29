@@ -1,5 +1,6 @@
 using Messenger.API.ApplicationServices;
 using Messenger.Core;
+using System.Reflection;
 
 namespace Messenger.API
 {
@@ -13,7 +14,10 @@ namespace Messenger.API
             builder.Services.RegisterCoreServices();
 
             // Api services to move out
+            // question here adding auto mapper again
+            builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             builder.Services.AddScoped<IChatApplicationService, ChatApplicationService>();
+            builder.Services.AddScoped<IParticipantApplicationService, ParticipantApplicationService>();
 
 
             builder.Services.AddControllers();

@@ -11,7 +11,6 @@ namespace Messenger.Core.Services
     public interface IChatService
     {
         Task<IChatDtoModel> CreateSoloChat(ISinglePersonChatCreationModel model);
-        Task CreateChatParticipant(INewParticipantModel model, int currentUser);
         IQueryable<IChatMessageModel> QueryChatMessages(int chatId);
     }
 
@@ -30,28 +29,6 @@ namespace Messenger.Core.Services
             this.mapper = mapper;
         }
 
-        public async Task CreateChatParticipant(INewParticipantModel model, int currentUser)
-        {
-            await verificationService.VerifyIfUserIsChatAdmin(currentUser, model.ChatId);
-            await verificationService.VerifyIfUserIsNotAlreadyInTheChat(model.UserId, model.ChatId);
-
-            var newParticipant = new Participant
-            {
-                IsAdmin = model.IsAdmin ?? false,
-                IsCreator = model.IsCreator ?? false,
-                ChatId = model.ChatId,
-                UserId = model.UserId,
-                ChangeTS = DateTime.Now,
-                Chat = await CurrentChat(model.ChatId),
-                User = await CurrentUser(model.UserId)
-            };
-
-            await messengerContext.Participants.AddAsync(newParticipant);
-            await messengerContext.SaveChangesAsync();
-
-            return;
-        }
-
         public async Task<IChatDtoModel> CreateSoloChat(ISinglePersonChatCreationModel model)
         {
             var newChat = new Chat
@@ -68,6 +45,7 @@ namespace Messenger.Core.Services
                 new Participant{
                     IsAdmin = true,
                     IsCreator = true,
+                    IsActive = true,
                     ChatId = newChat.Id,
                     Chat = newChat,
                     UserId = model.UserId,
@@ -98,16 +76,6 @@ namespace Messenger.Core.Services
                 .AsQueryable();
 
             return result;
-        }
-
-        private async Task<Chat> CurrentChat(int id)
-        {
-            return await messengerContext.Chats.FirstAsync(x => x.Id == id);
-        }
-
-        private async Task<User> CurrentUser(int id)
-        {
-            return await messengerContext.Users.FirstAsync(x => x.Id == id);
         }
     }
 }
