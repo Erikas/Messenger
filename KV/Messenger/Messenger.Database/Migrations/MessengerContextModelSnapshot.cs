@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Messenger.Data.Migrations
+namespace Messenger.Database.Migrations
 {
     [DbContext(typeof(MessengerContext))]
     partial class MessengerContextModelSnapshot : ModelSnapshot
@@ -24,7 +24,9 @@ namespace Messenger.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("ChangeTS")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 29, 29, 204, DateTimeKind.Utc).AddTicks(9492));
 
                     b.Property<int>("MessageId")
                         .HasColumnType("INTEGER");
@@ -37,7 +39,7 @@ namespace Messenger.Data.Migrations
 
                     b.HasIndex("MessageId");
 
-                    b.ToTable("Attachments", (string)null);
+                    b.ToTable("Attachment", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Data.Entities.Chat", b =>
@@ -47,14 +49,18 @@ namespace Messenger.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("ChangeTS")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 29, 29, 205, DateTimeKind.Utc).AddTicks(1566));
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Chats", (string)null);
+                    b.ToTable("Chat", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Data.Entities.Contact", b =>
@@ -64,7 +70,9 @@ namespace Messenger.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("ChangeTS")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 29, 29, 206, DateTimeKind.Utc).AddTicks(1198));
 
                     b.Property<int>("ContactBookId")
                         .HasColumnType("INTEGER");
@@ -76,9 +84,10 @@ namespace Messenger.Data.Migrations
 
                     b.HasIndex("ContactBookId");
 
-                    b.HasIndex("ContactUserId");
+                    b.HasIndex("ContactUserId", "ContactBookId")
+                        .IsUnique();
 
-                    b.ToTable("Contacts", (string)null);
+                    b.ToTable("Contact", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Data.Entities.ContactBook", b =>
@@ -88,7 +97,9 @@ namespace Messenger.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("ChangeTS")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 29, 29, 205, DateTimeKind.Utc).AddTicks(6842));
 
                     b.Property<int>("OwnerUserId")
                         .HasColumnType("INTEGER");
@@ -98,7 +109,7 @@ namespace Messenger.Data.Migrations
                     b.HasIndex("OwnerUserId")
                         .IsUnique();
 
-                    b.ToTable("ContactBooks", (string)null);
+                    b.ToTable("ContactBook", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Data.Entities.Message", b =>
@@ -108,7 +119,9 @@ namespace Messenger.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("ChangeTS")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 29, 29, 206, DateTimeKind.Utc).AddTicks(5647));
 
                     b.Property<int>("ChatId")
                         .HasColumnType("INTEGER");
@@ -126,7 +139,7 @@ namespace Messenger.Data.Migrations
 
                     b.HasIndex("SenderParticipantId");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Message", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Data.Entities.Participant", b =>
@@ -136,7 +149,9 @@ namespace Messenger.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("ChangeTS")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 29, 29, 206, DateTimeKind.Utc).AddTicks(8967));
 
                     b.Property<int>("ChatId")
                         .HasColumnType("INTEGER");
@@ -160,9 +175,10 @@ namespace Messenger.Data.Migrations
 
                     b.HasIndex("ChatId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId", "ChatId")
+                        .IsUnique();
 
-                    b.ToTable("Participants", (string)null);
+                    b.ToTable("Participant", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Data.Entities.User", b =>
@@ -172,18 +188,21 @@ namespace Messenger.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("ChangeTS")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue(new DateTime(2024, 5, 29, 19, 29, 29, 207, DateTimeKind.Utc).AddTicks(2886));
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Data.Entities.Attachment", b =>
@@ -191,7 +210,7 @@ namespace Messenger.Data.Migrations
                     b.HasOne("Messenger.Data.Entities.Message", "Message")
                         .WithMany("Attachments")
                         .HasForeignKey("MessageId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Message");
@@ -202,13 +221,13 @@ namespace Messenger.Data.Migrations
                     b.HasOne("Messenger.Data.Entities.ContactBook", "ContactBook")
                         .WithMany("Contacts")
                         .HasForeignKey("ContactBookId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Messenger.Data.Entities.User", "ContactUser")
                         .WithMany("Contacts")
                         .HasForeignKey("ContactUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ContactBook");
@@ -221,7 +240,7 @@ namespace Messenger.Data.Migrations
                     b.HasOne("Messenger.Data.Entities.User", "OwnerUser")
                         .WithOne("ContactBook")
                         .HasForeignKey("Messenger.Data.Entities.ContactBook", "OwnerUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("OwnerUser");
@@ -232,13 +251,13 @@ namespace Messenger.Data.Migrations
                     b.HasOne("Messenger.Data.Entities.Chat", "Chat")
                         .WithMany("Messages")
                         .HasForeignKey("ChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Messenger.Data.Entities.Participant", "SenderParticipant")
                         .WithMany("SentMessages")
                         .HasForeignKey("SenderParticipantId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Chat");
@@ -251,13 +270,13 @@ namespace Messenger.Data.Migrations
                     b.HasOne("Messenger.Data.Entities.Chat", "Chat")
                         .WithMany("Participants")
                         .HasForeignKey("ChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Messenger.Data.Entities.User", "User")
                         .WithMany("Participants")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Chat");

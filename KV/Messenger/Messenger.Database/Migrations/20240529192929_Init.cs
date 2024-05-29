@@ -3,64 +3,65 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Messenger.Data.Migrations
+namespace Messenger.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Chats",
+                name: "Chat",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 29, 29, 205, DateTimeKind.Utc).AddTicks(1566))
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Chats", x => x.Id);
+                    table.PrimaryKey("PK_Chat", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "User",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 29, 29, 207, DateTimeKind.Utc).AddTicks(2886))
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ContactBooks",
+                name: "ContactBook",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     OwnerUserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 29, 29, 205, DateTimeKind.Utc).AddTicks(6842))
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ContactBooks", x => x.Id);
+                    table.PrimaryKey("PK_ContactBook", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ContactBooks_Users_OwnerUserId",
+                        name: "FK_ContactBook_User_OwnerUserId",
                         column: x => x.OwnerUserId,
-                        principalTable: "Users",
+                        principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Participants",
+                name: "Participant",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -68,56 +69,57 @@ namespace Messenger.Data.Migrations
                     NickName = table.Column<string>(type: "TEXT", nullable: true),
                     IsAdmin = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsCreator = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
                     ChatId = table.Column<int>(type: "INTEGER", nullable: false),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 29, 29, 206, DateTimeKind.Utc).AddTicks(8967))
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Participants", x => x.Id);
+                    table.PrimaryKey("PK_Participant", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Participants_Chats_ChatId",
+                        name: "FK_Participant_Chat_ChatId",
                         column: x => x.ChatId,
-                        principalTable: "Chats",
+                        principalTable: "Chat",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Participants_Users_UserId",
+                        name: "FK_Participant_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Contacts",
+                name: "Contact",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ContactBookId = table.Column<int>(type: "INTEGER", nullable: false),
                     ContactUserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 29, 29, 206, DateTimeKind.Utc).AddTicks(1198))
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contacts", x => x.Id);
+                    table.PrimaryKey("PK_Contact", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contacts_ContactBooks_ContactBookId",
+                        name: "FK_Contact_ContactBook_ContactBookId",
                         column: x => x.ContactBookId,
-                        principalTable: "ContactBooks",
+                        principalTable: "ContactBook",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Contacts_Users_ContactUserId",
+                        name: "FK_Contact_User_ContactUserId",
                         column: x => x.ContactUserId,
-                        principalTable: "Users",
+                        principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Messages",
+                name: "Message",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -125,111 +127,113 @@ namespace Messenger.Data.Migrations
                     Content = table.Column<string>(type: "TEXT", nullable: false),
                     ChatId = table.Column<int>(type: "INTEGER", nullable: false),
                     SenderParticipantId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 29, 29, 206, DateTimeKind.Utc).AddTicks(5647))
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Messages", x => x.Id);
+                    table.PrimaryKey("PK_Message", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Messages_Chats_ChatId",
+                        name: "FK_Message_Chat_ChatId",
                         column: x => x.ChatId,
-                        principalTable: "Chats",
+                        principalTable: "Chat",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Messages_Participants_SenderParticipantId",
+                        name: "FK_Message_Participant_SenderParticipantId",
                         column: x => x.SenderParticipantId,
-                        principalTable: "Participants",
+                        principalTable: "Participant",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Attachments",
+                name: "Attachment",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     MessageId = table.Column<int>(type: "INTEGER", nullable: false),
                     StorageLocation = table.Column<string>(type: "TEXT", nullable: false),
-                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    ChangeTS = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2024, 5, 29, 19, 29, 29, 204, DateTimeKind.Utc).AddTicks(9492))
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Attachments", x => x.Id);
+                    table.PrimaryKey("PK_Attachment", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Attachments_Messages_MessageId",
+                        name: "FK_Attachment_Message_MessageId",
                         column: x => x.MessageId,
-                        principalTable: "Messages",
+                        principalTable: "Message",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attachments_MessageId",
-                table: "Attachments",
+                name: "IX_Attachment_MessageId",
+                table: "Attachment",
                 column: "MessageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ContactBooks_OwnerUserId",
-                table: "ContactBooks",
+                name: "IX_Contact_ContactBookId",
+                table: "Contact",
+                column: "ContactBookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contact_ContactUserId_ContactBookId",
+                table: "Contact",
+                columns: new[] { "ContactUserId", "ContactBookId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContactBook_OwnerUserId",
+                table: "ContactBook",
                 column: "OwnerUserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contacts_ContactBookId",
-                table: "Contacts",
-                column: "ContactBookId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Contacts_ContactUserId",
-                table: "Contacts",
-                column: "ContactUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Messages_ChatId",
-                table: "Messages",
+                name: "IX_Message_ChatId",
+                table: "Message",
                 column: "ChatId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_SenderParticipantId",
-                table: "Messages",
+                name: "IX_Message_SenderParticipantId",
+                table: "Message",
                 column: "SenderParticipantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Participants_ChatId",
-                table: "Participants",
+                name: "IX_Participant_ChatId",
+                table: "Participant",
                 column: "ChatId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Participants_UserId",
-                table: "Participants",
-                column: "UserId");
+                name: "IX_Participant_UserId_ChatId",
+                table: "Participant",
+                columns: new[] { "UserId", "ChatId" },
+                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Attachments");
+                name: "Attachment");
 
             migrationBuilder.DropTable(
-                name: "Contacts");
+                name: "Contact");
 
             migrationBuilder.DropTable(
-                name: "Messages");
+                name: "Message");
 
             migrationBuilder.DropTable(
-                name: "ContactBooks");
+                name: "ContactBook");
 
             migrationBuilder.DropTable(
-                name: "Participants");
+                name: "Participant");
 
             migrationBuilder.DropTable(
-                name: "Chats");
+                name: "Chat");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "User");
         }
     }
 }
