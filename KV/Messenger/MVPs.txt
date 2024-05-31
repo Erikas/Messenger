@@ -1,0 +1,24 @@
+Backend
+MVP1:
+	Write/Read chat messages
+	Create and administrate chat
+	Participate in chat and leave chat
+	User create + login + JWT
+	Authenticate
+	Authorization
+	Middleware for error handling
+	Swagger documentation for APIs and better routes
+
+MVP2:
+	Encrypt messages
+	Message attachments
+	Join chat via external link
+	
+MVP3:
+	Clean-up architecture
+	Autofixture & tests
+
+MVP4:
+	Docker image
+	Pipelines
+		

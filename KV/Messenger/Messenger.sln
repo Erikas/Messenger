@@ -9,6 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger.Core", "Messenger
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger.API", "Messenger.API\Messenger.API.csproj", "{B249DE33-D5E5-4B3A-B730-7F81501E057D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{24F2FD0A-6259-472F-95A4-55BC050CDF99}"
+	ProjectSection(SolutionItems) = preProject
+		MVPs.txt = MVPs.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
