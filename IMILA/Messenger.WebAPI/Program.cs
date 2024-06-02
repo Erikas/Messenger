@@ -1,3 +1,4 @@
+using Messenger.Core.Services;
 using Messenger.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,11 @@ builder.Services.AddDbContext<MessengerDbContext>(options => options.UseSqlServe
 
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<UserSettingsService>();
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
