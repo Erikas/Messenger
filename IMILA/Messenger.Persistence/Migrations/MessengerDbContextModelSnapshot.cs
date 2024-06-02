@@ -53,7 +53,7 @@ namespace Messenger.Persistence.Migrations
 
                     b.HasIndex("SenderUserAccountId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Message", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.MessageAttachment", b =>
@@ -86,7 +86,7 @@ namespace Messenger.Persistence.Migrations
 
                     b.HasIndex("MessageId");
 
-                    b.ToTable("MessageAttachments");
+                    b.ToTable("MessageAttachment", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.Thread", b =>
@@ -106,9 +106,6 @@ namespace Messenger.Persistence.Migrations
                     b.Property<bool>("IsGroup")
                         .HasColumnType("bit");
 
-                    b.Property<long>("MessageId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("ModificationTS")
                         .HasColumnType("datetime2");
 
@@ -121,9 +118,7 @@ namespace Messenger.Persistence.Migrations
 
                     b.HasIndex("CreatorAccountId");
 
-                    b.HasIndex("MessageId");
-
-                    b.ToTable("Threads");
+                    b.ToTable("Thread", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.ThreadMember", b =>
@@ -156,7 +151,7 @@ namespace Messenger.Persistence.Migrations
 
                     b.HasIndex("ThreadMemberUserAccountId");
 
-                    b.ToTable("ThreadMembers");
+                    b.ToTable("ThreadMember", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.User", b =>
@@ -203,7 +198,7 @@ namespace Messenger.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.UserAccount", b =>
@@ -239,7 +234,7 @@ namespace Messenger.Persistence.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("UserAccounts");
+                    b.ToTable("UserAccount", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.UserContact", b =>
@@ -271,7 +266,7 @@ namespace Messenger.Persistence.Migrations
 
                     b.HasIndex("UserAccountId");
 
-                    b.ToTable("UserContacts");
+                    b.ToTable("UserContact", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.UserSettings", b =>
@@ -299,7 +294,7 @@ namespace Messenger.Persistence.Migrations
                     b.HasIndex("UserAccountId")
                         .IsUnique();
 
-                    b.ToTable("UserSettings");
+                    b.ToTable("UserSettings", (string)null);
                 });
 
             modelBuilder.Entity("Messenger.Persistence.Entities.Message", b =>
@@ -339,14 +334,6 @@ namespace Messenger.Persistence.Migrations
                         .HasForeignKey("CreatorAccountId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.HasOne("Messenger.Persistence.Entities.Message", "Message")
-                        .WithMany()
-                        .HasForeignKey("MessageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Message");
 
                     b.Navigation("UserAccount");
                 });

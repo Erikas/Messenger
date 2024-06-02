@@ -8,6 +8,8 @@ namespace Messenger.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<MessageAttachment> builder)
         {
+            builder.ToTable(nameof(MessageAttachment));
+
             builder.Property(a => a.Name).HasMaxLength(50);
 
             builder.HasOne(u => u.Message)

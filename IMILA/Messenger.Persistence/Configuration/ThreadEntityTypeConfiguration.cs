@@ -8,6 +8,8 @@ namespace Messenger.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<Thread> builder)
         {
+            builder.ToTable(nameof(Thread));
+
             builder.Property(t => t.Name).HasMaxLength(100);
 
             builder.HasOne(u => u.UserAccount)

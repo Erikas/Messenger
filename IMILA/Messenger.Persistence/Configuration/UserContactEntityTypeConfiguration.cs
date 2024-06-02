@@ -8,6 +8,8 @@ namespace Messenger.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<UserContact> builder)
         {
+            builder.ToTable(nameof(UserContact));
+
             builder.HasOne(u => u.UserAccount)
                    .WithMany(u => u.UserContacts)
                    .HasForeignKey(u => u.UserAccountId)

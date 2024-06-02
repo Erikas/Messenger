@@ -8,6 +8,8 @@ namespace Messenger.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.ToTable(nameof(User));
+
             builder.Property(u => u.FirstName).HasMaxLength(40);
             builder.Property(u => u.LastName).HasMaxLength(40);
             builder.Property(u => u.Email).HasMaxLength(50);

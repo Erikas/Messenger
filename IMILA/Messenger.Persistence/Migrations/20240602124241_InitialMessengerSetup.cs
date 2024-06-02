@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Messenger.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMessengerAppMigration : Migration
+    public partial class InitialMessengerSetup : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "User",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -28,11 +28,11 @@ namespace Messenger.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserAccounts",
+                name: "UserAccount",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -46,16 +46,38 @@ namespace Messenger.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserAccounts", x => x.Id);
+                    table.PrimaryKey("PK_UserAccount", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserAccounts_Users_UserId",
+                        name: "FK_UserAccount_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "User",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserContacts",
+                name: "Thread",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CreatorAccountId = table.Column<long>(type: "bigint", nullable: false),
+                    IsGroup = table.Column<bool>(type: "bit", nullable: false),
+                    CreationTS = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModificationTS = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Thread", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Thread_UserAccount_CreatorAccountId",
+                        column: x => x.CreatorAccountId,
+                        principalTable: "UserAccount",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserContact",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -68,16 +90,16 @@ namespace Messenger.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserContacts", x => x.Id);
+                    table.PrimaryKey("PK_UserContact", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserContacts_UserAccounts_ContactUserAccountId",
+                        name: "FK_UserContact_UserAccount_ContactUserAccountId",
                         column: x => x.ContactUserAccountId,
-                        principalTable: "UserAccounts",
+                        principalTable: "UserAccount",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_UserContacts_UserAccounts_UserAccountId",
+                        name: "FK_UserContact_UserAccount_UserAccountId",
                         column: x => x.UserAccountId,
-                        principalTable: "UserAccounts",
+                        principalTable: "UserAccount",
                         principalColumn: "Id");
                 });
 
@@ -96,31 +118,14 @@ namespace Messenger.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_UserSettings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserSettings_UserAccounts_UserAccountId",
+                        name: "FK_UserSettings_UserAccount_UserAccountId",
                         column: x => x.UserAccountId,
-                        principalTable: "UserAccounts",
+                        principalTable: "UserAccount",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "MessageAttachments",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    MessageId = table.Column<long>(type: "bigint", nullable: false),
-                    BlobUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreationTS = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModificationTS = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MessageAttachments", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Messages",
+                name: "Message",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -133,45 +138,21 @@ namespace Messenger.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Messages", x => x.Id);
+                    table.PrimaryKey("PK_Message", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Messages_UserAccounts_SenderUserAccountId",
+                        name: "FK_Message_Thread_MessageThreadId",
+                        column: x => x.MessageThreadId,
+                        principalTable: "Thread",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Message_UserAccount_SenderUserAccountId",
                         column: x => x.SenderUserAccountId,
-                        principalTable: "UserAccounts",
+                        principalTable: "UserAccount",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Threads",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CreatorAccountId = table.Column<long>(type: "bigint", nullable: false),
-                    IsGroup = table.Column<bool>(type: "bit", nullable: false),
-                    MessageId = table.Column<long>(type: "bigint", nullable: false),
-                    CreationTS = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModificationTS = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Threads", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Threads_Messages_MessageId",
-                        column: x => x.MessageId,
-                        principalTable: "Messages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Threads_UserAccounts_CreatorAccountId",
-                        column: x => x.CreatorAccountId,
-                        principalTable: "UserAccounts",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ThreadMembers",
+                name: "ThreadMember",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -184,68 +165,85 @@ namespace Messenger.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ThreadMembers", x => x.Id);
+                    table.PrimaryKey("PK_ThreadMember", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ThreadMembers_Threads_ThreadId",
+                        name: "FK_ThreadMember_Thread_ThreadId",
                         column: x => x.ThreadId,
-                        principalTable: "Threads",
+                        principalTable: "Thread",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ThreadMembers_UserAccounts_ThreadMemberUserAccountId",
+                        name: "FK_ThreadMember_UserAccount_ThreadMemberUserAccountId",
                         column: x => x.ThreadMemberUserAccountId,
-                        principalTable: "UserAccounts",
+                        principalTable: "UserAccount",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MessageAttachment",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    MessageId = table.Column<long>(type: "bigint", nullable: false),
+                    BlobUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreationTS = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModificationTS = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MessageAttachment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MessageAttachment_Message_MessageId",
+                        column: x => x.MessageId,
+                        principalTable: "Message",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_MessageAttachments_MessageId",
-                table: "MessageAttachments",
-                column: "MessageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Messages_MessageThreadId",
-                table: "Messages",
+                name: "IX_Message_MessageThreadId",
+                table: "Message",
                 column: "MessageThreadId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_SenderUserAccountId",
-                table: "Messages",
+                name: "IX_Message_SenderUserAccountId",
+                table: "Message",
                 column: "SenderUserAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ThreadMembers_ThreadId",
-                table: "ThreadMembers",
-                column: "ThreadId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ThreadMembers_ThreadMemberUserAccountId",
-                table: "ThreadMembers",
-                column: "ThreadMemberUserAccountId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Threads_CreatorAccountId",
-                table: "Threads",
-                column: "CreatorAccountId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Threads_MessageId",
-                table: "Threads",
+                name: "IX_MessageAttachment_MessageId",
+                table: "MessageAttachment",
                 column: "MessageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAccounts_UserId",
-                table: "UserAccounts",
+                name: "IX_Thread_CreatorAccountId",
+                table: "Thread",
+                column: "CreatorAccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ThreadMember_ThreadId",
+                table: "ThreadMember",
+                column: "ThreadId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ThreadMember_ThreadMemberUserAccountId",
+                table: "ThreadMember",
+                column: "ThreadMemberUserAccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserAccount_UserId",
+                table: "UserAccount",
                 column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserContacts_ContactUserAccountId",
-                table: "UserContacts",
+                name: "IX_UserContact_ContactUserAccountId",
+                table: "UserContact",
                 column: "ContactUserAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserContacts_UserAccountId",
-                table: "UserContacts",
+                name: "IX_UserContact_UserAccountId",
+                table: "UserContact",
                 column: "UserAccountId");
 
             migrationBuilder.CreateIndex(
@@ -253,52 +251,34 @@ namespace Messenger.Persistence.Migrations
                 table: "UserSettings",
                 column: "UserAccountId",
                 unique: true);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_MessageAttachments_Messages_MessageId",
-                table: "MessageAttachments",
-                column: "MessageId",
-                principalTable: "Messages",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Messages_Threads_MessageThreadId",
-                table: "Messages",
-                column: "MessageThreadId",
-                principalTable: "Threads",
-                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Threads_Messages_MessageId",
-                table: "Threads");
+            migrationBuilder.DropTable(
+                name: "MessageAttachment");
 
             migrationBuilder.DropTable(
-                name: "MessageAttachments");
+                name: "ThreadMember");
 
             migrationBuilder.DropTable(
-                name: "ThreadMembers");
-
-            migrationBuilder.DropTable(
-                name: "UserContacts");
+                name: "UserContact");
 
             migrationBuilder.DropTable(
                 name: "UserSettings");
 
             migrationBuilder.DropTable(
-                name: "Messages");
+                name: "Message");
 
             migrationBuilder.DropTable(
-                name: "Threads");
+                name: "Thread");
 
             migrationBuilder.DropTable(
-                name: "UserAccounts");
+                name: "UserAccount");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "User");
         }
     }
 }
