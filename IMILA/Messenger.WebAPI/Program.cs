@@ -17,6 +17,7 @@ builder.Services.AddDbContext<MessengerDbContext>(options => options.UseSqlServe
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<UserSettingsService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

@@ -1,4 +1,4 @@
-﻿namespace Messenger.WebAPI.Models
+﻿namespace Messenger.Core.Models
 {
     public class UserSettingsDto
     {

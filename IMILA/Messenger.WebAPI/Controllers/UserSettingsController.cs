@@ -1,6 +1,6 @@
-﻿using Messenger.Core.Services;
+﻿using Messenger.Core.Models;
+using Messenger.Core.Services;
 using Messenger.Persistence.Entities;
-using Messenger.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Messenger.WebAPI.Controllers
