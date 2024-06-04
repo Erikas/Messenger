@@ -15,6 +15,14 @@ namespace Messenger.API.Controllers
             this.participantApplicationService = participantApplicationService;
         }
 
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<ParticipantModel>>> Get([FromRoute] int chatId)
+        {
+            var result = await participantApplicationService.Get(chatId);
+            return Ok(result);
+        }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<int>> Post([FromRoute] int chatId,
@@ -25,12 +33,12 @@ namespace Messenger.API.Controllers
             return Created(nameof(Post), result);
         }
 
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<ParticipantModel>>> Get([FromRoute] int chatId)
+        [HttpDelete("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<ActionResult> Delete([FromRoute] int id, [FromQuery] int requestUserId)
         {
-            var result = await participantApplicationService.Get(chatId);
-            return Ok(result);
+            await participantApplicationService.Delete(id, requestUserId);
+            return NoContent();
         }
     }
 }

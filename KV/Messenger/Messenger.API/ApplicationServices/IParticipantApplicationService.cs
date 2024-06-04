@@ -11,6 +11,7 @@ namespace Messenger.API.ApplicationServices
     {
         Task<int> Create(ParticipantCreationModel model, int chatId);
         Task<IEnumerable<ParticipantModel>> Get(int chatId);
+        Task Delete(int id, int requestUserId);
 
     }
 
@@ -33,6 +34,13 @@ namespace Messenger.API.ApplicationServices
             creationModel.ChatId = chatId;
             
             return await participantService.Create(creationModel);
+        }
+
+        public async Task Delete(int id, int requestUserId)
+        {
+            // Current user id needs to be reworked
+            await participantService.Remove(id, id);
+            return;
         }
 
         public async Task<IEnumerable<ParticipantModel>> Get(int chatId)
