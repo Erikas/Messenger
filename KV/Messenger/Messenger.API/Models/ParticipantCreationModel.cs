@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Messenger.Core.Models.ChatModels;
+using Messenger.Core.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Messenger.API.Models

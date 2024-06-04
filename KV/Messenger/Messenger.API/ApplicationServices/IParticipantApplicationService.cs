@@ -1,13 +1,17 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Messenger.API.Models;
-using Messenger.Core.Models.ChatModels;
+using Messenger.Core.Models;
 using Messenger.Core.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace Messenger.API.ApplicationServices
 {
     public interface IParticipantApplicationService
     {
         Task<int> Create(ParticipantCreationModel model, int chatId);
+        Task<IEnumerable<ParticipantModel>> Get(int chatId);
+
     }
 
     internal class ParticipantApplicationService : IParticipantApplicationService
@@ -29,6 +33,13 @@ namespace Messenger.API.ApplicationServices
             creationModel.ChatId = chatId;
             
             return await participantService.Create(creationModel);
+        }
+
+        public async Task<IEnumerable<ParticipantModel>> Get(int chatId)
+        {
+            // TODO: Add authorization restrictions
+            var query = participantService.Get(chatId);
+            return await query.ProjectTo<ParticipantModel>(mapper.ConfigurationProvider).ToListAsync();
         }
     }
 }

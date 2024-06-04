@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Messenger.Core.Models;
 using Messenger.Core.Models.ChatModels;
 using Messenger.Core.Resources;
 using Messenger.Data;
@@ -11,7 +12,7 @@ namespace Messenger.Core.Services
     public interface IChatService
     {
         Task<IChatDtoModel> CreateSoloChat(ISinglePersonChatCreationModel model);
-        IQueryable<IChatMessageModel> QueryChatMessages(int chatId);
+        IQueryable<IMessageModel> QueryChatMessages(int chatId);
     }
 
     internal class ChatService : IChatService
@@ -59,14 +60,14 @@ namespace Messenger.Core.Services
             return mapper.Map<IChatDtoModel>(newChat);
         }
 
-        public IQueryable<IChatMessageModel> QueryChatMessages(int chatId)
+        public IQueryable<IMessageModel> QueryChatMessages(int chatId)
         {
             var result = messengerContext.Messages
                 .Include(msg => msg.Chat)
                 .Include(msg => msg.SenderParticipant).ThenInclude(prt => prt.User)
                 .OrderByDescending(msg => msg.ChangeTS).ThenByDescending(msg => msg.Id)
                 .Where(msg => msg.ChatId == chatId)
-                .Select(msg => new ChatMessageModel
+                .Select(msg => new MessageModel
                 {
                     Id = msg.Id,
                     Content = msg.Content,

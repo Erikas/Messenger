@@ -1,6 +1,6 @@
-﻿namespace Messenger.Core.Models.ChatModels
+﻿namespace Messenger.Core.Models
 {
-    public interface IChatMessageModel
+    public interface IMessageModel
     {
         int Id { get; set; }
         string Content { get; set; }
@@ -8,7 +8,7 @@
         DateTime ChangeTS { get; set; }
     }
 
-    internal class ChatMessageModel : IChatMessageModel
+    internal class MessageModel : IMessageModel
     {
         public int Id { get; set; }
         public required string Content { get; set; }

@@ -1,4 +1,4 @@
-﻿using Messenger.Core.Models.ChatModels;
+﻿using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,7 +6,7 @@ namespace Messenger.API.ApplicationServices
 {
     public interface IChatApplicationService
     {
-        Task<IEnumerable<IChatMessageModel>> GetChatMessages(int id, int? rows);
+        Task<IEnumerable<IMessageModel>> GetChatMessages(int id, int? rows);
     }
 
     internal class ChatApplicationService : IChatApplicationService
@@ -18,7 +18,7 @@ namespace Messenger.API.ApplicationServices
             this.chatService = chatService;
         }
 
-        public async Task<IEnumerable<IChatMessageModel>> GetChatMessages(int id, int? rows)
+        public async Task<IEnumerable<IMessageModel>> GetChatMessages(int id, int? rows)
         {
             var query = chatService.QueryChatMessages(id);
 

@@ -1,6 +1,6 @@
 ﻿using Messenger.API.ApplicationServices;
 using Messenger.API.Models.Chat;
-using Messenger.Core.Models.ChatModels;
+using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,8 +28,8 @@ namespace Messenger.API.Controllers
         }
 
         [HttpGet("{id:int}/Messages")]
-        [ProducesResponseType<ActionResult<IChatMessageModel>>(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IChatMessageModel>> GetMessages([FromRoute] int id,
+        [ProducesResponseType<ActionResult<IMessageModel>>(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IMessageModel>> GetMessages([FromRoute] int id,
         [FromQuery] int? rows)
         {
             var result = await chatApplicationService.GetChatMessages(id, rows);

@@ -1,18 +1,20 @@
-﻿using Messenger.Core.Models.ChatModels;
+﻿using Messenger.Core.Models;
 using Messenger.Core.Resources;
 using Messenger.Data;
 using Messenger.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Messenger.Core.Services
 {
     public interface IParticipantService
     {
-        Task Remove(int id, int currentId);
+        Task Remove(int id, int currentId);       
         Task<int> Create(INewParticipantModel model);
+        IQueryable<IParticipantDtoModel> Get(int chadId);
     }
 
-    public class ParticipantService : IParticipantService
+    internal class ParticipantService : IParticipantService
     {
         private readonly MessengerContext messengerContext;
         private readonly IVerificationService verificationService;
@@ -84,6 +86,23 @@ namespace Messenger.Core.Services
             messengerContext.Participants.Update(participant);
             await messengerContext.SaveChangesAsync();
             return;
+        }
+
+        public IQueryable<IParticipantDtoModel> Get(int chadId)
+        {
+            var result = messengerContext.Participants
+                .Where(x => x.ChatId == chadId)
+                .Include(x => x.User)
+                .Select(x => new ParticipantDtoModel
+                {
+                    Id = x.Id,
+                    Name = x.NickName ?? x.User.Name,
+                    IsActive = x.IsActive,
+                    IsAdmin = x.IsAdmin,
+                    IsCreator = x.IsCreator
+                });
+
+            return result;                
         }
     }
 }

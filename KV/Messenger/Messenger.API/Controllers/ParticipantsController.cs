@@ -24,5 +24,13 @@ namespace Messenger.API.Controllers
 
             return Created(nameof(Post), result);
         }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<ParticipantModel>>> Get([FromRoute] int chatId)
+        {
+            var result = await participantApplicationService.Get(chatId);
+            return Ok(result);
+        }
     }
 }

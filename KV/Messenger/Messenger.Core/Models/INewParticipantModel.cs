@@ -1,4 +1,4 @@
-﻿namespace Messenger.Core.Models.ChatModels
+﻿namespace Messenger.Core.Models
 {
     public interface INewParticipantModel
     {
