@@ -1,8 +1,14 @@
 Backend
 MVP1:
 	Write/Read chat messages
-	Create and administrate chat
-	Participate in chat and leave chat
+	Create and administrate chat (leave chat, give nick name)
+	Update chat message to have file attachments
+		- Investigate how to implement that
+
+	Logic for adding users to contact book
+	Fix project consistancy and single responsibility
+	Fix/Add appsettings json dbproj
+
 	User create + login + JWT
 	Authenticate
 	Authorization
