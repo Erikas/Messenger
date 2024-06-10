@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Messenger.API.Controllers
 {
-    [Route("api/Chats/{chatId:int}/[controller]")]
+    [Route("Chats/{chatId:int}/[controller]")]
     [ApiController]
     public class ParticipantsController : ControllerBase
     {
