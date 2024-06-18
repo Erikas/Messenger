@@ -9,16 +9,16 @@ namespace Messenger.Database.Configurations
         public void Configure(EntityTypeBuilder<Message> builder)
         {
             builder
-             .HasOne(b => b.User1)
-             .WithMany(a => a.Messages)
+             .HasOne(b => b.MessangeReceiver)
+             .WithMany(a => a.MessangeReceivers)
              .HasForeignKey(b => b.MessageReceiverId)
-             .OnDelete(DeleteBehavior.ClientSetNull);
+             .OnDelete(DeleteBehavior.NoAction);
 
             builder
-             .HasOne(b => b.User2)
-             .WithMany(a => a.Messages2)
+             .HasOne(b => b.MessangeSender)
+             .WithMany(a => a.MessangeSenders)
              .HasForeignKey(b => b.MessageSenderId)
-             .OnDelete(DeleteBehavior.ClientSetNull);
+             .OnDelete(DeleteBehavior.NoAction);
 
             builder
              .HasOne(b => b.Thread)

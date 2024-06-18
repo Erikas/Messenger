@@ -8,7 +8,7 @@ namespace Messenger.Database.Context
     {
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Friend> Friends { get; set; }
-        public DbSet<Message> Message { get; set; }
+        public DbSet<Message> Messages { get; set; }
         public DbSet<ThreadParticipants> ThreadParticipants { get; set; }
         public DbSet<Entities.Thread> Threads { get; set; }
         public DbSet<User> Users { get; set; }

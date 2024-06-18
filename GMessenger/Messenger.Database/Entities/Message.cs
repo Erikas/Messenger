@@ -9,8 +9,8 @@
         public int TredId { get; set; }
         public DateTime CreationTimeStamp { get; set; }
         public required virtual ICollection<Attachment> Attachments { get; set; }
-        public required virtual User User1 { get; set; }
-        public required virtual User User2 { get; set; }
+        public required virtual User MessangeSender { get; set; }
+        public required virtual User MessangeReceiver { get; set; }
         public required virtual Thread Thread { get; set; }
     }
 }

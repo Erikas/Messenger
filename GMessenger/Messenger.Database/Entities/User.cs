@@ -14,9 +14,9 @@
         public DateTime AccountCreationDaten { get; set; }
         public required virtual UserSettings UserSettings { get; set; }
         public required virtual ICollection<Friend> Friends { get; set; }
-        public required virtual ICollection<Friend> Friends2 { get; set; }
+        public required virtual ICollection<Friend> UserFriends { get; set; }
         public required virtual ICollection<ThreadParticipants> ThreadParticipants { get; set;}
-        public required virtual ICollection<Message> Messages { get; set; }
-        public required virtual ICollection<Message> Messages2 { get; set; }
+        public required virtual ICollection<Message> MessangeSenders { get; set; }
+        public required virtual ICollection<Message> MessangeReceivers { get; set; }
     }
 }
