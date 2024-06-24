@@ -1,4 +1,7 @@
-﻿namespace Messenger.Data.Entities
+﻿using System;
+using System.Collections.Generic;
+
+namespace Messenger.Data.Entities
 {
     public class Chat
     {

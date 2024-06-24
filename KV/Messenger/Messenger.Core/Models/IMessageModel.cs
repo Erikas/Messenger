@@ -1,4 +1,6 @@
-﻿namespace Messenger.Core.Models
+﻿using System;
+
+namespace Messenger.Core.Models
 {
     public interface IMessageModel
     {

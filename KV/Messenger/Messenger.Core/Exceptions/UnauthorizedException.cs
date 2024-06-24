@@ -1,4 +1,6 @@
-﻿namespace Messenger.Core.Exceptions
+﻿using System;
+
+namespace Messenger.Core.Exceptions
 {
     public class UnauthorizedException : Exception
     {

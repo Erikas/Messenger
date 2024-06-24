@@ -1,4 +1,6 @@
-﻿namespace Messenger.Data.Entities
+﻿using System;
+
+namespace Messenger.Data.Entities
 {
     public class Attachment
     {

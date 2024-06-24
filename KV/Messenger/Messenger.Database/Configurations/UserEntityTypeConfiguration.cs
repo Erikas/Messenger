@@ -1,6 +1,7 @@
 ﻿using Messenger.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace Messenger.Data.Configurations
 {

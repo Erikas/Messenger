@@ -1,8 +1,13 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Core.Resources;
+using Messenger.Core.Exceptions;
 using Messenger.Data;
 using Messenger.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
 
 
 namespace Messenger.Core.Services

@@ -1,6 +1,9 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Data;
 using Messenger.Data.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Messenger.Core.Services
 {

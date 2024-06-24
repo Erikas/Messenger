@@ -3,6 +3,8 @@ using Messenger.API.Models.Chat;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Messenger.API.Controllers
 {

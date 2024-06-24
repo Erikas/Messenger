@@ -5,6 +5,9 @@ using Messenger.Core.Resources;
 using Messenger.Data;
 using Messenger.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 
 namespace Messenger.Core.Services

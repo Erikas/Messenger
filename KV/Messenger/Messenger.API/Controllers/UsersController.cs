@@ -1,5 +1,6 @@
 ﻿using Messenger.Core.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Messenger.API.Controllers
 {

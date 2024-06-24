@@ -1,6 +1,9 @@
 ﻿using Messenger.API.ApplicationServices;
 using Messenger.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Messenger.API.Controllers
 {
