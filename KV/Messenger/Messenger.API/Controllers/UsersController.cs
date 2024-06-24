@@ -18,7 +18,7 @@ namespace Messenger.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(string userName)
         {
-            var user = await userService.CreateUserAsync(userName);
+            var user = await userService.Create(userName);
 
             return Created(nameof(Post), user);
         }

@@ -1,5 +1,4 @@
 ﻿using Messenger.Core.Models;
-using Messenger.Core.Exceptions;
 using Messenger.Database.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -35,6 +34,11 @@ namespace Messenger.Core.Services
         {
             await verificationService.VerifyIfUserIsChatAdmin(model.RequestUserId, model.ChatId);
             await verificationService.VerifyIfUserIsNotAlreadyInTheChat(model.UserId, model.ChatId);
+            var chat = await messengerContext.Chats.FindAsync(model.ChatId)
+                ?? throw new KeyNotFoundException();
+            var user = await messengerContext.Users.FindAsync(model.UserId)
+                ?? throw new KeyNotFoundException();
+
 
             var newParticipant = new Participant
             {
@@ -45,10 +49,8 @@ namespace Messenger.Core.Services
                 ChatId = model.ChatId,
                 UserId = model.UserId,
                 ChangeTS = DateTime.Now,
-                Chat = await messengerContext.Chats.FindAsync(model.ChatId)
-                ?? throw new KeyNotFoundException(),
-                User = await messengerContext.Users.FindAsync(model.UserId) 
-                ?? throw new KeyNotFoundException()
+                Chat = chat,
+                User = user,
             };
 
             await messengerContext.Participants.AddAsync(newParticipant);
@@ -57,11 +59,11 @@ namespace Messenger.Core.Services
             return newParticipant.Id;
         }
 
-        public async Task Remove(int id, int currentId)
+        public async Task Remove(int participantToRemoveId, int requestorParticipantId)
         {
-            if (id == currentId)
+            if (participantToRemoveId == requestorParticipantId)
             {
-                var currentParticipant = await messengerContext.Participants.FindAsync(currentId)
+                var currentParticipant = await messengerContext.Participants.FindAsync(requestorParticipantId)
                     ?? throw new KeyNotFoundException();
 
                 currentParticipant.IsActive = false;
@@ -71,19 +73,18 @@ namespace Messenger.Core.Services
 
                 return;
             }
-
-            
-            if (await verificationService.ParticipantIsAdminStatus(id))
+           
+            if (await verificationService.ParticipantIsAdminStatus(participantToRemoveId))
             {
                 throw new UnauthorizedAccessException(ExceptionMessages.CannotDeleteAdmin);
             }
 
-            if (!await verificationService.ParticipantIsAdminStatus(currentId))
+            if (!await verificationService.ParticipantIsAdminStatus(requestorParticipantId))
             {
                 throw new UnauthorizedAccessException(ExceptionMessages.Unauthorized);
             }
 
-            var participant = await messengerContext.Participants.FindAsync(id)
+            var participant = await messengerContext.Participants.FindAsync(participantToRemoveId)
                     ?? throw new KeyNotFoundException();
 
             participant.IsActive = false;

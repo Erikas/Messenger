@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Messenger.Core\Messenger.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Chat\" />
+  </ItemGroup>
+
 </Project>

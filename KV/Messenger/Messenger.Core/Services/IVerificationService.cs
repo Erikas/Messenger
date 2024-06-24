@@ -1,4 +1,4 @@
-﻿using Messenger.Core.Exceptions;
+﻿using Messenger.Core.Infrastructure.Exceptions;
 using Messenger.Core.Infrastructure;
 using Messenger.Database;
 using Microsoft.EntityFrameworkCore;

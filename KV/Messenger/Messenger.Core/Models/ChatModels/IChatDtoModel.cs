@@ -10,14 +10,14 @@ namespace Messenger.Core.Models.ChatModels
         string Name { get; set; }
     }
 
-    internal class IChatDtoModelProfile : Profile
+    internal class ChatDtoModelProfile : Profile
     {
-        public IChatDtoModelProfile()
+        public ChatDtoModelProfile()
         {
             CreateMap<Chat, IChatDtoModel>().AsProxy()
                 .ForMember(
                     model => model.Name,
-                    conf => conf.MapFrom(c => c.Name ?? LocalNames.NewChatName)
+                    conf => conf.MapFrom(c => c.Name ?? Constants.ChatValues.NewChatName)
                 );
         }
     }

@@ -37,13 +37,14 @@ namespace Messenger.Core.Services
         {
             var newChat = new Chat
             {
-                Name = model.Name ?? LocalNames.NewChatName,
+                Name = model.Name ?? Constants.ChatValues.NewChatName,
                 ChangeTS = DateTime.Now
             };
 
             await messengerContext.Chats.AddAsync(newChat);
             
-            var currentUser = await messengerContext.Users.FindAsync(model.UserId);
+            var currentUser = await messengerContext.Users.FindAsync(model.UserId)
+                ?? throw new InvalidOperationException();
 
             newChat.Participants = [
                 new Participant{
@@ -53,7 +54,7 @@ namespace Messenger.Core.Services
                     ChatId = newChat.Id,
                     Chat = newChat,
                     UserId = model.UserId,
-                    User = currentUser ?? throw new InvalidOperationException(),
+                    User = currentUser,
                     ChangeTS = DateTime.Now
                 }
                 ];
@@ -65,21 +66,22 @@ namespace Messenger.Core.Services
 
         public IQueryable<IMessageModel> QueryChatMessages(int chatId)
         {
-            var result = messengerContext.Messages
-                .Include(msg => msg.Chat)
-                .Include(msg => msg.SenderParticipant).ThenInclude(prt => prt.User)
-                .OrderByDescending(msg => msg.ChangeTS).ThenByDescending(msg => msg.Id)
-                .Where(msg => msg.ChatId == chatId)
-                .Select(msg => new MessageModel
+            var result =
+                from msg in messengerContext.Messages
+                join prt in messengerContext.Participants
+                    on msg.SenderParticipantId equals prt.Id
+                join usr in messengerContext.Users
+                    on prt.UserId equals usr.Id
+                where msg.ChatId == chatId
+                select new MessageModel
                 {
                     Id = msg.Id,
                     Content = msg.Content,
-                    SenderName = msg.SenderParticipant.NickName ?? msg.SenderParticipant.User.Name,
+                    SenderName = prt.NickName ?? usr.Name,
                     ChangeTS = msg.ChangeTS
-                })
-                .AsQueryable();
+                };
 
-            return result;
+            return result.OrderByDescending(x => x.ChangeTS);
         }
     }
 }
