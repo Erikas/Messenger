@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Messenger.Data.Entities
+namespace Messenger.Database.Entities
 {
     public class Attachment
     {

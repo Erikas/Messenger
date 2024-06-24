@@ -1,4 +1,4 @@
-﻿namespace Messenger.Core.Resources
+﻿namespace Messenger.Core.Infrastructure
 {
     public static class LocalNames
     {

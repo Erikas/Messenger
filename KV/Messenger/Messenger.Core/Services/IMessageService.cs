@@ -1,6 +1,6 @@
 ﻿using Messenger.Core.Models;
-using Messenger.Data;
-using Messenger.Data.Entities;
+using Messenger.Database;
+using Messenger.Database.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

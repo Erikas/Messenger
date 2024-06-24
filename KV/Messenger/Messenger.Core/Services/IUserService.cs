@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Messenger.Core.Models;
-using Messenger.Data;
-using Messenger.Data.Entities;
+using Messenger.Database.Entities;
+using Messenger.Database;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Messenger.Data.Entities
+namespace Messenger.Database.Entities
 {
     public class User
     {

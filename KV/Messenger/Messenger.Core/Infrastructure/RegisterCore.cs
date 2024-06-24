@@ -1,9 +1,9 @@
 ﻿using Messenger.Core.Services;
-using Messenger.Data;
+using Messenger.Database;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace Messenger.Core
+namespace Messenger.Core.Infrastructure
 {
     public static class RegisterCore
     {

@@ -1,6 +1,6 @@
 ﻿using Messenger.Core.Exceptions;
-using Messenger.Core.Resources;
-using Messenger.Data;
+using Messenger.Core.Infrastructure;
+using Messenger.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;

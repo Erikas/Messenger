@@ -1,5 +1,5 @@
 using Messenger.API.ApplicationServices;
-using Messenger.Core;
+using Messenger.Core.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

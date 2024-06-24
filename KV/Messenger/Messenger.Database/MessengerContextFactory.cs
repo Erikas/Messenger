@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.IO;
 
-namespace Messenger.Data
+namespace Messenger.Database
 {
     public class MessengerContextFactory : IDesignTimeDbContextFactory<MessengerContext>
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace Messenger.Data.Entities
+namespace Messenger.Database.Entities
 {
     public class Contact
     {
         public int Id { get; set; }
-        public int ContactBookId {  get; set; }
+        public int ContactBookId { get; set; }
         public required ContactBook ContactBook { get; set; }
         public int ContactUserId { get; set; }
         public required User ContactUser { get; set; }

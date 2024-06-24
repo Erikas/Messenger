@@ -1,9 +1,8 @@
-﻿using Messenger.Data.Configurations;
-using Messenger.Data.Entities;
+﻿using Messenger.Database.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace Messenger.Data
+namespace Messenger.Database
 {
     public class MessengerContext : DbContext
     {
@@ -15,7 +14,7 @@ namespace Messenger.Data
         public DbSet<Message> Messages { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
 
-        public MessengerContext(DbContextOptions<MessengerContext> options) : base(options) 
+        public MessengerContext(DbContextOptions<MessengerContext> options) : base(options)
         {
         }
 

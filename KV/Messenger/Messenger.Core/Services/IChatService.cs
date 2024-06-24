@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using Messenger.Core.Infrastructure;
 using Messenger.Core.Models;
 using Messenger.Core.Models.ChatModels;
-using Messenger.Core.Resources;
-using Messenger.Data;
-using Messenger.Data.Entities;
+using Messenger.Database.Entities;
+using Messenger.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
