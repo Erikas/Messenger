@@ -14,12 +14,13 @@ namespace Messenger.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.RegisterCoreServices();
+            builder.Services.RegisterCoreProject();
 
             // Api services to move out
-            // question here adding auto mapper again
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             builder.Services.AddScoped<IChatApplicationService, ChatApplicationService>();
+            builder.Services.AddScoped<IMessageApplicationService, MessageApplicationService>();
+            builder.Services.AddScoped<IUserApplicationService, UserApplicationService>();
             builder.Services.AddScoped<IParticipantApplicationService, ParticipantApplicationService>();
 
 

@@ -1,27 +1,26 @@
-﻿using Messenger.API.Models;
-using Messenger.Core.Services;
+﻿using Messenger.API.ApplicationServices;
+using Messenger.API.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Messenger.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class MessagesController : ControllerBase
+    public class MessagesController : BaseController
     {
-        private readonly IMessageService messageService;
+        private readonly IMessageApplicationService messageApplicationService;
 
-        public MessagesController(IMessageService messageService)
+        public MessagesController(IMessageApplicationService messageApplicationService)
         {
-            this.messageService = messageService;
+            this.messageApplicationService = messageApplicationService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] NewMessageModel model) 
+        [ProducesResponseType<int>(StatusCodes.Status201Created)]
+        public async Task<ActionResult<int>> Post([FromBody] NewMessageModel model) 
         {
-            await messageService.Create(model);
-
-            return Ok();
+            var id = await messageApplicationService.Create(model);
+            return Created(nameof(Post), id);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Messenger.Core.Services
 {
     public interface IMessageService
     {
-        Task Create(INewMessageModel model);
+        Task<int> Create(INewMessageModel model);
     }
 
     internal class MessageService : IMessageService
@@ -21,12 +21,11 @@ namespace Messenger.Core.Services
             this.messengerContext = messengerContext;
         }
 
-        public async Task Create(INewMessageModel model)
+        public async Task<int> Create(INewMessageModel model)
         {
             
             var sender = await GetParticipant(model.SenderId);
             var chat = await GetChat(model.ChatId);
-
             var newMessage = new Message
             {
                 Content = model.Content,
@@ -39,8 +38,7 @@ namespace Messenger.Core.Services
 
             await messengerContext.Messages.AddAsync(newMessage);
             await messengerContext.SaveChangesAsync();
-
-            return;
+            return newMessage.Id;
         }
 
         private async Task<Participant> GetParticipant(int id)

@@ -8,9 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Messenger.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class ChatsController : ControllerBase
+    public class ChatsController : BaseController
     {
         private readonly IChatService chatService;
         private readonly IChatApplicationService chatApplicationService;

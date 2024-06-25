@@ -8,8 +8,7 @@ using Microsoft.AspNetCore.Http;
 namespace Messenger.API.Controllers
 {
     [Route("Chats/{chatId:int}/[controller]")]
-    [ApiController]
-    public class ParticipantsController : ControllerBase
+    public class ParticipantsController : BaseController
     {
         private readonly IParticipantApplicationService participantApplicationService;
 
@@ -38,7 +37,8 @@ namespace Messenger.API.Controllers
 
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult> Delete([FromRoute] int id, [FromQuery] int requestUserId)
+        public async Task<ActionResult> Delete([FromRoute] int id,
+            [FromQuery] int requestUserId)
         {
             await participantApplicationService.Delete(id, requestUserId);
             return NoContent();

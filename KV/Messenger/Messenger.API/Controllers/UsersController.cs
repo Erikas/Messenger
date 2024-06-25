@@ -1,24 +1,24 @@
-﻿using Messenger.Core.Services;
+﻿using Messenger.API.ApplicationServices;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Messenger.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseController
     {
-        private readonly IUserService userService;
+        private readonly IUserApplicationService userApplicationService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserApplicationService userApplicationService)
         {
-            this.userService = userService;
+            this.userApplicationService = userApplicationService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(string userName)
+        [ProducesResponseType<int>(StatusCodes.Status201Created)]
+        public async Task<ActionResult<int>> Post(string userName)
         {
-            var user = await userService.Create(userName);
+            var user = await userApplicationService.Create(userName);
 
             return Created(nameof(Post), user);
         }

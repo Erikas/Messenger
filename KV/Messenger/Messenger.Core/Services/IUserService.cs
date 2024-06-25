@@ -11,7 +11,7 @@ namespace Messenger.Core.Services
     public interface IUserService
     {
         IQueryable<IContactDtoModel> GetUserContacts(int userId);
-        Task<IUserDtoModel> Create(string userName);
+        Task<int> Create(string userName);
     }
 
     internal class UserService : IUserService
@@ -25,7 +25,7 @@ namespace Messenger.Core.Services
             this.mapper = mapper;
         }
 
-        public async Task<IUserDtoModel> Create(string userName)
+        public async Task<int> Create(string userName)
         {
             var newUser = new User()
             {
@@ -44,10 +44,10 @@ namespace Messenger.Core.Services
             };
             await dbContext.SaveChangesAsync();
 
-            return mapper.Map<IUserDtoModel>(newUser);
+            return newUser.Id;
         }
 
-        // Will be moced to Contact book service
+        // Will be moved to Contact book service
         public IQueryable<IContactDtoModel> GetUserContacts(int userId)
         {
             var query =

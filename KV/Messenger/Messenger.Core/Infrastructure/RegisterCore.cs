@@ -7,7 +7,7 @@ namespace Messenger.Core.Infrastructure
 {
     public static class RegisterCore
     {
-        public static void RegisterCoreServices(this IServiceCollection services)
+        public static void RegisterCoreProject(this IServiceCollection services)
         {
             services.RegisterSqliteDb();
 
