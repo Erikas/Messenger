@@ -1,0 +1,70 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+
+
+Table User {
+  Id int [primary key] 
+  Name string
+  CreatedAt timestamp
+  Updated timestamp
+}
+
+Table ContactBook{
+  Id int [primary key]
+  UserId int
+  CreatedAt timestamp
+  Updated timestamp
+}
+
+Table UserContact{
+  Id int [primary key]
+  ContactBookId int
+  UserId int
+  CreatedAt timestamp
+  Updated timestamp
+}
+
+
+Table Chat {
+  Id int [primary key]
+  Name string
+  CreatedAt timestamp
+  Updated timestamp
+}
+
+Table ChatUser {
+  Id int [primary key]
+  ChatId int
+  UserId integer
+  IsAdmin bool
+  ChatNickName string
+  CreatedAt timestamp
+  Updated timestamp
+}
+
+Table Message{
+  Id int [primary key]
+  ChatId int
+  ChatUserId integer
+  Content string
+  CreatedAt timestamp
+  Updated timestamp
+}
+
+Table Attachment{
+  Id int [primary key]
+  MessageId int
+  File undefined
+  CreatedAt timestamp
+  Updated timestamp
+}
+
+ref: User.Id < ChatUser.UserId
+ref: Chat.Id < ChatUser.ChatId
+ref: Chat.Id < Message.ChatId
+ref: ChatUser.Id < Message.ChatUserId
+ref: User.Id < UserContact.UserId
+ref: ContactBook.Id < UserContact.ContactBookId
+ref: User.Id - ContactBook.UserId
+ref: Message.Id < Attachment.MessageId
