@@ -1,10 +1,10 @@
 ﻿using Messenger.Core.Infrastructure.Exceptions;
 using Messenger.Core.Infrastructure;
-using Messenger.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Messenger.Data;
 
 namespace Messenger.Core.Services
 {

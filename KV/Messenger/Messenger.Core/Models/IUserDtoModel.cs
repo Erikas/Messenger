@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Messenger.Database.Entities;
+using Messenger.Data.Entities;
 
 namespace Messenger.Core.Models
 {

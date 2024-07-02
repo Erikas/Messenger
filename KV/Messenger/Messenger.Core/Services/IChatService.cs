@@ -2,19 +2,17 @@
 using Messenger.Core.Infrastructure;
 using Messenger.Core.Models;
 using Messenger.Core.Models.ChatModels;
-using Messenger.Database.Entities;
-using Messenger.Database;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Messenger.Data;
+using Messenger.Data.Entities;
 
 namespace Messenger.Core.Services
 {
     public interface IChatService
     {
-        Task<IChatDtoModel> CreateSoloChat(ISinglePersonChatCreationModel model);
-        IQueryable<IMessageModel> QueryChatMessages(int chatId);
+        Task<IChatDtoModel> CreateSoloChat(ISinglePersonChatCreationModel model);      
     }
 
     internal class ChatService : IChatService
@@ -61,26 +59,6 @@ namespace Messenger.Core.Services
             await messengerContext.SaveChangesAsync();
 
             return mapper.Map<IChatDtoModel>(newChat);
-        }
-
-        public IQueryable<IMessageModel> QueryChatMessages(int chatId)
-        {
-            var result =
-                from msg in messengerContext.Messages
-                join prt in messengerContext.Participants
-                    on msg.SenderParticipantId equals prt.Id
-                join usr in messengerContext.Users
-                    on prt.UserId equals usr.Id
-                where msg.ChatId == chatId
-                select new MessageModel
-                {
-                    Id = msg.Id,
-                    Content = msg.Content,
-                    SenderName = prt.NickName ?? usr.Name,
-                    ChangeTS = msg.ChangeTS
-                };
-
-            return result.OrderByDescending(x => x.ChangeTS);
         }
     }
 }

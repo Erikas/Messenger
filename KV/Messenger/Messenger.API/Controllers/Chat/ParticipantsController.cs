@@ -5,10 +5,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Messenger.API.Controllers
+namespace Messenger.API.Controllers.Chat
 {
-    [Route("Chats/{chatId:int}/[controller]")]
-    public class ParticipantsController : BaseController
+    public class ParticipantsController : ChatBaseController
     {
         private readonly IParticipantApplicationService participantApplicationService;
 

@@ -1,9 +1,9 @@
-﻿using Messenger.Database.Entities;
+﻿using Messenger.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 
-namespace Messenger.Database.Configurations
+namespace Messenger.Data.Configurations
 {
     internal class MessageEntityTypeConfiguration : IEntityTypeConfiguration<Message>
     {

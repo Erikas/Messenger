@@ -1,5 +1,5 @@
 ﻿using Messenger.Core.Services;
-using Messenger.Database;
+using Messenger.Data;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 

@@ -5,10 +5,11 @@ using Messenger.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Messenger.API.Controllers.Chat;
 
 namespace Messenger.API.Controllers
 {
-    public class ChatsController : BaseController
+    public class ChatsController : ChatBaseController
     {
         private readonly IChatService chatService;
         private readonly IChatApplicationService chatApplicationService;
@@ -25,15 +26,6 @@ namespace Messenger.API.Controllers
         {
             var result = await chatService.CreateSoloChat(model);
             return Created(nameof(PostSoloChat), result);
-        }
-
-        [HttpGet("{id:int}/Messages")]
-        [ProducesResponseType<ActionResult<IMessageModel>>(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IMessageModel>> GetMessages([FromRoute] int id,
-        [FromQuery] int? rows)
-        {
-            var result = await chatApplicationService.GetChatMessages(id, rows);
-            return Ok(result);
         }
     }
 }

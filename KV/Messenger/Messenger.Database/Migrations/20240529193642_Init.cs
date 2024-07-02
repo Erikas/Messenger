@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Messenger.Database.Migrations
+namespace Messenger.Data.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration

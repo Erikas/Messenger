@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Messenger.Core.Models;
-using Messenger.Database.Entities;
-using Messenger.Database;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Messenger.Data;
+using Messenger.Data.Entities;
 
 namespace Messenger.Core.Services
 {

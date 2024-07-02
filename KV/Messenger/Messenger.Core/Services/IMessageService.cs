@@ -1,8 +1,9 @@
 ﻿using Messenger.Core.Models;
-using Messenger.Database;
-using Messenger.Database.Entities;
+using Messenger.Data;
+using Messenger.Data.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Messenger.Core.Services
@@ -10,6 +11,7 @@ namespace Messenger.Core.Services
     public interface IMessageService
     {
         Task<int> Create(INewMessageModel model);
+        IQueryable<IMessageModel> Get(int chatId);
     }
 
     internal class MessageService : IMessageService
@@ -39,6 +41,26 @@ namespace Messenger.Core.Services
             await messengerContext.Messages.AddAsync(newMessage);
             await messengerContext.SaveChangesAsync();
             return newMessage.Id;
+        }
+
+        public IQueryable<IMessageModel> Get(int chatId)
+        {
+            var result =
+                from msg in messengerContext.Messages
+                join prt in messengerContext.Participants
+                    on msg.SenderParticipantId equals prt.Id
+                join usr in messengerContext.Users
+                    on prt.UserId equals usr.Id
+                where msg.ChatId == chatId
+                select new MessageModel
+                {
+                    Id = msg.Id,
+                    Content = msg.Content,
+                    SenderName = prt.NickName ?? usr.Name,
+                    ChangeTS = msg.ChangeTS
+                };
+
+            return result;
         }
 
         private async Task<Participant> GetParticipant(int id)

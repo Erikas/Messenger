@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 
-namespace Messenger.Database
+namespace Messenger.Data
 {
     public static class RegisterDb
     {

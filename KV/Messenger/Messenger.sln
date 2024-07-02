@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger.Database", "Messenger.Database\Messenger.Database.csproj", "{4E29BF3D-6BB1-4ADB-A68D-54B46BF1EA79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger.Data", "Messenger.Database\Messenger.Data.csproj", "{4E29BF3D-6BB1-4ADB-A68D-54B46BF1EA79}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger.Core", "Messenger.Core\Messenger.Core.csproj", "{BBEA6A9F-BF6E-4CCC-9A22-506FB779CD4E}"
 EndProject

@@ -1,8 +1,8 @@
-﻿using Messenger.Database.Entities;
+﻿using Messenger.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace Messenger.Database
+namespace Messenger.Data
 {
     public class MessengerContext : DbContext
     {

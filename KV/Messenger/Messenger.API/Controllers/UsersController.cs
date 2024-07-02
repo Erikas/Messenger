@@ -1,11 +1,12 @@
 ﻿using Messenger.API.ApplicationServices;
+using Messenger.API.Controllers.Chat;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Messenger.API.Controllers
 {
-    public class UsersController : BaseController
+    public class UsersController : ChatBaseController
     {
         private readonly IUserApplicationService userApplicationService;
 

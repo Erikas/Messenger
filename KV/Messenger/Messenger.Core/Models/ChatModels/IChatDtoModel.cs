@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Messenger.Core.Infrastructure;
-using Messenger.Database.Entities;
+using Messenger.Data.Entities;
 
 namespace Messenger.Core.Models.ChatModels
 {
